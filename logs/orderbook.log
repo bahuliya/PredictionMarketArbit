@@ -1,0 +1,51 @@
+2026-02-05 03:49:45,503 | INFO | orderbook | Snapshot Recieved
+2026-02-05 03:49:45,504 | INFO | orderbook | {'yes': {'bids': {1: 13602, 2: 25885, 3: 17, 4: 52500, 5: 1665, 6: 10, 7: 3010, 8: 3801, 9: 3805, 10: 6088, 11: 3383}, 'bestBid': 11, 'bestAsk': None, 'bestBidVolume': 3383, 'bestAskVolume': 0}, 'no': {'bids': {1: 100000, 2: 6116, 4: 1000, 6: 2002, 11: 10000, 20: 4000, 21: 3000, 24: 1, 31: 2000, 35: 4000, 40: 298, 41: 2000, 42: 886, 50: 2000, 52: 24, 55: 22, 56: 5025, 63: 351, 65: 119, 69: 488, 75: 1879, 76: 5222, 78: 16, 84: 40, 85: 46, 86: 669, 87: 2134, 88: 4901}, 'bestBid': 88, 'bestAsk': None, 'bestBidVolume': 4901, 'bestAskVolume': 0}}
+2026-02-05 03:49:45,504 | INFO | orderbook | {'yes': {'bids': {1: 13602, 2: 25885, 3: 17, 4: 52500, 5: 1665, 6: 10, 7: 3010, 8: 3801, 9: 3805, 10: 6088, 11: 3383}, 'bestBid': 11, 'bestAsk': 12, 'bestBidVolume': 3383, 'bestAskVolume': 4901}, 'no': {'bids': {1: 100000, 2: 6116, 4: 1000, 6: 2002, 11: 10000, 20: 4000, 21: 3000, 24: 1, 31: 2000, 35: 4000, 40: 298, 41: 2000, 42: 886, 50: 2000, 52: 24, 55: 22, 56: 5025, 63: 351, 65: 119, 69: 488, 75: 1879, 76: 5222, 78: 16, 84: 40, 85: 46, 86: 669, 87: 2134, 88: 4901}, 'bestBid': 88, 'bestAsk': 89, 'bestBidVolume': 4901, 'bestAskVolume': 3383}}
+2026-02-05 03:49:45,585 | INFO | orderbook | Book Recieved
+2026-02-05 03:49:45,585 | INFO | orderbook | {'bids': {'0.01': '122509.86', '0.02': '21750', '0.03': '202356.19', '0.04': '101250', '0.05': '680', '0.06': '250', '0.07': '7.77', '0.1': '1570', '0.14': '2485.71', '0.15': '6330', '0.16': '1074', '0.19': '336.84', '0.2': '250', '0.21': '5.57', '0.22': '5047.38', '0.23': '900', '0.24': '649.33', '0.29': '179.31', '0.3': '575', '0.34': '141.17', '0.38': '105.26', '0.4': '966', '0.41': '1462', '0.44': '40', '0.54': '50', '0.64': '50', '0.74': '191.57', '0.75': '5', '0.78': '5', '0.79': '5090.5', '0.81': '75', '0.84': '1055', '0.85': '16.85', '0.86': '9245.79', '0.87': '4402.58', '0.89': '2994.24', '0.9': '75.23', '0.91': '5060', '0.92': '697.2', '0.93': '14818.42', '0.94': '10663.39', '0.95': '1430.45'}, 'asks': {'0.99': '6179.43', '0.98': '23790', '0.97': '13749', '0.96': '19051.41'}, 'bestBid': '0.95', 'bestAsk': '0.96', 'bestBidVolume': '1430.45', 'bestAskVolume': '19051.41'}
+2026-02-05 03:49:45,586 | INFO | orderbook | Book Recieved
+2026-02-05 03:49:45,586 | INFO | orderbook | {'bids': {'0.01': '6179.43', '0.02': '23790', '0.03': '13749', '0.04': '19051.41'}, 'asks': {'0.99': '122509.86', '0.98': '21750', '0.97': '202356.19', '0.96': '101250', '0.95': '680', '0.94': '250', '0.93': '7.77', '0.9': '1570', '0.86': '2485.71', '0.85': '6330', '0.84': '1074', '0.81': '336.84', '0.8': '250', '0.79': '5.57', '0.78': '5047.38', '0.77': '900', '0.76': '649.33', '0.71': '179.31', '0.7': '575', '0.66': '141.17', '0.62': '105.26', '0.6': '966', '0.59': '1462', '0.56': '40', '0.46': '50', '0.36': '50', '0.26': '191.57', '0.25': '5', '0.22': '5', '0.21': '5090.5', '0.19': '75', '0.16': '1055', '0.15': '16.85', '0.14': '9245.79', '0.13': '4402.58', '0.11': '2994.24', '0.1': '75.23', '0.09': '5060', '0.08': '697.2', '0.07': '14818.42', '0.06': '10663.39', '0.05': '1430.45'}, 'bestBid': '0.04', 'bestAsk': '0.05', 'bestBidVolume': '19051.41', 'bestAskVolume': '1430.45'}
+2026-02-05 03:50:08,703 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:08,706 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:08,706 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:08,706 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:18,102 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:18,104 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:18,244 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:18,333 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:18,627 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:18,627 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:37,222 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:37,224 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:37,225 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:37,225 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:55,643 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:55,646 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:56,122 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:50:56,123 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:38,216 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:38,216 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:38,947 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:38,948 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:39,261 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:39,273 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:39,285 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:39,297 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:42,290 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:42,291 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:42,292 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:42,292 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:49,810 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:49,810 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:49,817 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:51:49,827 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:44,112 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:44,115 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:44,299 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:44,299 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:44,500 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:44,509 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:58,331 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:58,332 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:58,959 | INFO | orderbook | Price Change Recieved
+2026-02-05 03:52:58,959 | INFO | orderbook | Price Change Recieved

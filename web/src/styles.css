@@ -1,0 +1,1158 @@
+﻿:root {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: #f6f7f9;
+  color: #111827;
+}
+
+* { box-sizing: border-box; }
+
+:root {
+  --surface: #ffffff;
+  --surface-2: #f3f6fb;
+  --border: #e5e7eb;
+  --text-muted: #6b7280;
+  --text-strong: #0f172a;
+  --accent: #0ea5e9;
+  --accent-2: #8b5cf6;
+  --success: #10b981;
+  --danger: #ef4444;
+}
+
+.app { min-height: 100vh; }
+.topbar {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 18px;
+}
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: #111827;
+}
+.content { padding: 18px; max-width: 1100px; margin: 0 auto; }
+
+.card {
+  background: linear-gradient(180deg, var(--surface) 0%, #f9fbff 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.h2 { margin: 0 0 12px 0; font-size: 18px; }
+.h3 { font-size: 14px; font-weight: 700; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.big { font-size: 16px; font-weight: 700; }
+.label { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
+
+.table { display: grid; gap: 2px; }
+.tr {
+  display: grid;
+  grid-template-columns: 2.2fr 0.8fr 0.8fr 2.2fr;
+  padding: 10px 10px;
+  border-radius: 10px;
+  align-items: center;
+}
+.th {
+  background: linear-gradient(90deg, rgba(14,165,233,0.12), rgba(139,92,246,0.12));
+  font-weight: 700;
+  color: var(--text-strong);
+}
+.thBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.thBtn:hover { color: var(--accent-2); }
+.linkrow {
+  text-decoration: none;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid #eef2f7;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+.linkrow:nth-child(even) { background: #fbfdff; }
+.linkrow:hover {
+  border-color: rgba(14,165,233,0.35);
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.12);
+  transform: translateY(-2px);
+}
+
+.hitYes { color: var(--success); font-weight: 700; }
+.hitNo { color: var(--text-muted); font-weight: 600; }
+.roiPositive { color: var(--accent-2); font-weight: 700; }
+.roiEmpty { color: var(--text-muted); }
+.tsText { color: var(--text-strong); }
+
+.stack { display: grid; gap: 14px; }
+.row { display: flex; gap: 24px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+
+.grid2 {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 900px) {
+  .grid2 { grid-template-columns: 1fr; }
+}
+
+.obHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.last {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.lastLabel { font-size: 12px; color: #6b7280; }
+.lastVal { font-weight: 700; }
+
+.obGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.obColHead {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 8px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.obColHead.asks { background: #fff1f2; color: #b91c1c; }
+.obColHead.bids { background: #ecfdf5; color: #047857; }
+
+.obRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 7px 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  border: 1px solid #f3f4f6;
+}
+.askRow { background: #fff7f7; }
+.bidRow { background: #f4fff8; }
+
+.price { font-weight: 700; }
+.price.ask { color: #dc2626; }
+.price.bid { color: #059669; }
+
+.size { text-align: right; color: #111827; }
+.empty { color: #9ca3af; padding: 8px; }
+
+.ob2Top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.ob2Title {
+  font-weight: 800;
+  font-size: 18px;
+}
+.ob2LastLabel {
+  color: #6b7280;
+  font-size: 12px;
+  margin-right: 10px;
+}
+.ob2LastVal {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.obTabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 10px;
+}
+.obTab {
+  background: transparent;
+  border: none;
+  padding: 10px 0;
+  font-size: 18px;
+  cursor: pointer;
+  color: #111827;
+}
+.obTab.active {
+  color: #059669;
+  border-bottom: 3px solid #059669;
+  margin-bottom: -2px;
+}
+
+.obHdr {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: #9ca3af;
+  font-size: 18px;
+  padding: 8px 10px;
+}
+
+.obSectionLabel {
+  font-weight: 800;
+  font-size: 18px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+.obSectionLabel.asks { background: #fff1f2; color: #b91c1c; }
+.obSectionLabel.bids { background: #ecfdf5; color: #047857; }
+
+.obScroll {
+  max-height: 360px;
+  overflow-y: auto;
+  border-radius: 12px;
+}
+
+.obRow2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 14px 10px;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 20px;
+}
+.askRow2 { background: #fff7f7; }
+.bidRow2 { background: #f4fff8; }
+
+.obRow2 .c2 { text-align: center; }
+.obRow2 .c3 { text-align: right; padding-right: 6px; }
+
+.price { font-weight: 800; }
+.price.ask { color: #dc2626; }
+.price.bid { color: #059669; }
+
+.obMid {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 14px 0;
+  color: #2563eb;
+  font-weight: 800;
+  font-size: 22px;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  margin: 10px 0;
+}
+
+.obEmpty {
+  padding: 18px 10px;
+  color: #9ca3af;
+  font-size: 18px;
+}
+
+.obCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px 18px 14px 18px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.obTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.obTitle {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.obLastLabel {
+  font-size: 14px;
+  color: #6b7280;
+  margin-right: 10px;
+}
+
+.obLastValue {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.obTabs2 {
+  display: flex;
+  gap: 22px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 14px;
+}
+
+.obTab2 {
+  font-size: 22px;
+  padding: 10px 0 12px 0;
+  cursor: pointer;
+  color: #111827;
+  position: relative;
+}
+
+.obTab2.active {
+  color: #059669;
+  font-weight: 700;
+}
+
+.obTab2.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: #10b981;
+}
+
+.obHeaderRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: #9ca3af;
+  font-size: 22px;
+  padding: 6px 0 10px 0;
+}
+
+.obHPrice { text-align: center; }
+.obHContracts { text-align: center; }
+.obHTotal { text-align: right; padding-right: 6px; }
+
+.obAsksBlock {
+  background: #fff1f2;
+  border-radius: 12px;
+  padding: 10px 10px 8px 10px;
+}
+
+.obBidsBlock {
+  background: #ecfdf5;
+  border-radius: 12px;
+  padding: 10px 10px 8px 10px;
+}
+
+.obSideLabel {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.obSideLabel.asks { color: #b91c1c; }
+.obSideLabel.bids { color: #047857; }
+
+.obScrollArea {
+  max-height: 280px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.obRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 16px 10px;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  font-size: 22px;
+  background: rgba(255,255,255,0.55);
+}
+
+.obRow:first-child { border-top: none; }
+
+.obPrice {
+  text-align: center;
+  font-weight: 800;
+}
+
+.obPrice.ask { color: #dc2626; }
+.obPrice.bid { color: #059669; }
+
+.obContracts { text-align: center; }
+.obTotal { text-align: right; padding-right: 6px; }
+
+.obEmptyRow {
+  padding: 18px 10px;
+  font-size: 20px;
+  color: #6b7280;
+}
+
+.obMidLine {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 14px 0;
+  margin: 12px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  color: #2563eb;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.bidRow {
+  overflow: hidden;
+}
+
+.obDepthBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(16, 185, 129, 0.12);
+  border-radius: 10px;
+  z-index: 0;
+}
+
+.bidRow > div {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- FINAL BID HOVER OVERRIDE (apply to every bid row) --- */
+.bidsScroll .obRow {
+  background: transparent !important;
+}
+.bidsScroll .obRow:nth-child(even),
+.bidsScroll .obRow:nth-child(odd) {
+  background: transparent !important;
+}
+.bidsScroll .obRow:hover {
+  background: rgba(16, 185, 129, 0.12) !important;
+}
+/* --- FINAL BID HOVER FIX --- */
+.bidsScroll .obRow { background: transparent !important; }
+.bidsScroll .obRow:nth-child(even) { background: transparent !important; }
+.bidRow { background: transparent !important; }
+.bidRow:hover { background: rgba(16,185,129,0.12) !important; }
+/* === TOP PRIORITY ALIGNMENT FIX === */
+.obHeaderLine {
+  display: grid !important;
+  grid-template-columns: 0.4fr 1fr 1fr !important;
+  align-items: center !important;
+  padding: 4px 8px 4px !important;
+  color: #9ca3af !important;
+  font-size: 15px !important;
+}
+.obRows { margin: 0 !important; padding: 0 !important; }
+.obRow {
+  display: grid !important;
+  grid-template-columns: 0.4fr 1fr 1fr !important;
+  align-items: center !important;
+  padding: 12px 10px !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+.obPrice, .obColPrice { text-align: center !important; justify-self: center !important; }
+.obContracts, .obColContracts {
+  text-align: right !important;
+  justify-self: end !important;
+  padding-left: 0 !important;
+  padding-right: 4px !important;
+  margin-left: 0 !important;
+}
+
+/* ==== FINAL: left-align contracts ==== */
+.obContracts,
+.obColContracts {
+  text-align: left !important;
+  justify-self: start !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  transform: none !important;
+}
+
+/* ==== Shift contracts column left by tightening grid ==== */
+.obHeaderLine,
+.obRow {
+  grid-template-columns: 0.55fr 0.95fr 0.9fr !important;
+}
+/* === FINAL OVERRIDE: column alignment === */
+.obHeaderLine {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  align-items: center !important;
+  padding: 4px 8px 4px !important;
+  color: #9ca3af !important;
+}
+.obRows { margin: 0 !important; padding: 0 !important; }
+.obRow {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  align-items: center !important;
+  padding: 12px 10px !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+.obPrice, .obColPrice { text-align: center !important; }
+.obContracts, .obColContracts {
+  text-align: left !important;
+  justify-self: start !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+/* === FINAL ALIGNMENT OVERRIDE (highest priority) === */
+.obHeaderLine {
+  display: grid !important;
+  grid-template-columns: 0.35fr 0.65fr 1fr !important;
+  padding: 4px 8px 4px !important;
+  color: #9ca3af !important;
+  font-size: 15px !important;
+  align-items: center;
+  column-gap: 6px;
+}
+.obRows { margin: 0 !important; padding: 0 !important; }
+.obRow {
+  display: grid !important;
+  grid-template-columns: 0.35fr 0.65fr 1fr !important;
+  padding: 12px 10px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  column-gap: 6px;
+}
+.obPrice, .obColPrice { text-align: center !important; justify-self: center !important; }
+.obContracts, .obColContracts {
+  text-align: left !important;
+  justify-self: start !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  transform: translateX(-24px) !important;
+}
+
+/* === Absolute final alignment fix for contracts column === */
+.obHeaderLine,
+.obRow {
+  grid-template-columns: 0.5fr 1fr 1fr !important;
+}
+.obContracts,
+.obColContracts {
+  text-align: left !important;
+  justify-self: start !important;
+  margin-left: -28px !important;
+  padding-left: 0 !important;
+}
+
+/* Nudge price header slightly left */
+.obHeaderLine .obColPrice {
+  margin-left: -3px !important;
+}
+
+/* ---- Final alignment reset ---- */
+.obHeaderLine {
+  display: grid !important;
+  grid-template-columns: 0.6fr 1fr 1fr !important;
+  padding: 4px 8px 4px !important;
+  color: #9ca3af !important;
+  font-size: 15px !important;
+  align-items: center;
+  column-gap: 6px;
+}
+.obTable { gap: 8px !important; }
+.obRows { padding: 0 !important; margin: 0 !important; }
+.obRow {
+  display: grid !important;
+  grid-template-columns: 0.6fr 1fr 1fr !important;
+  padding: 12px 10px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  column-gap: 6px;
+}
+.obPrice, .obColPrice { text-align: center !important; justify-self: center !important; }
+.obContracts, .obColContracts {
+  text-align: left !important;
+  justify-self: start !important;
+  padding-left: 2px !important;
+  padding-right: 0 !important;
+  transform: translateX(-2px);
+}
+
+/* --- Absolute last override to align price under header --- */
+.obAsks .obHeaderLine,
+.obBids .obHeaderLine {
+  grid-template-columns: 0.8fr 1fr 1fr !important;
+}
+.obAsks .obRow,
+.obBids .obRow {
+  grid-template-columns: 0.8fr 1fr 1fr !important;
+}
+.obSideTitle {
+  margin-bottom: 4px;
+}
+
+/* ===== Hard reset for alignment (takes precedence) ===== */
+.obRows { display: block !important; }
+.obRow {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  align-items: center !important;
+}
+.obHeaderLine {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  text-align: left !important;
+}
+.obPrice, .obColPrice { text-align: left !important; justify-self: start !important; }
+.obContracts, .obColContracts { text-align: right !important; justify-self: end !important; padding-right: 6px !important; }
+/* ---- Final overrides for header/row alignment ---- */
+.obHeaderLine {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px 8px 4px;
+  color: #9ca3af;
+  font-size: 15px;
+  text-align: center;
+}
+.obRow {
+  grid-template-columns: 1fr 1fr !important;
+  padding: 10px 8px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+.obPrice { text-align: left !important; }
+.obColPrice { text-align: left !important; padding-left: 0; }
+.obContracts { text-align: right !important; }
+.obColContracts { text-align: right !important; padding-right: 6px; }
+/* --- Final alignment override --- */
+.obSectionHeader { display: none; }
+.obHeaderRow3 {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 1fr;
+  padding: 4px 8px 4px;
+  color: #9ca3af;
+  font-size: 15px;
+}
+
+/* --- Final clean layout --- */
+.obRows {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+.asksScroll {
+  max-height: 200px !important;
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  gap: 0 !important;
+  overflow-y: auto !important;
+}
+.bidsScroll {
+  max-height: 320px !important;
+  display: block !important;
+}
+.obRow {
+  grid-template-columns: 0.7fr 1fr 1fr !important;
+  padding: 10px 8px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+.obPlaceholder { width: 100%; }
+.obColPrice { text-align: center !important; }
+.obPrice { text-align: center !important; }
+.obColPrice { text-align: center !important; }
+.obPrice { text-align: center !important; }
+.askRow,
+.bidRow,
+.bidsScroll .obRow:nth-child(even) {
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+.obPrice { text-align: left !important; }
+.obContracts { text-align: right !important; }
+/* Force perfectly square row corners */
+.obRows,
+.obRow,
+.askRow,
+.bidRow {
+  border-radius: 0 !important;
+}
+/* --- Final overrides to match reference --- */
+.obHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr !important;
+  padding: 4px 6px 6px !important;
+  font-size: 15px !important;
+}
+.obColPrice { text-align: left; padding-left: 4px; }
+.obColContracts { text-align: right; padding-right: 6px; }
+.obRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr !important;
+  padding: 12px 12px !important;
+  font-size: 17px !important;
+  border-bottom: 1px solid #f2f4f5 !important;
+}
+.askRow { background: transparent !important; border-radius: 0 !important; }
+.bidRow { background: transparent !important; border-radius: 0 !important; }
+.bidsScroll .obRow:nth-child(even) { background: transparent !important; }
+.obRow { border-radius: 0 !important; }
+.obRow:hover { background: transparent !important; }
+.askRow:hover { background: #fff2f2 !important; }
+.bidRow:hover { background: rgba(16,185,129,0.10) !important; }
+.obPrice { font-weight: 400; font-size: 18px; text-align: left; }
+.obContracts { font-size: 18px; text-align: right; }
+.asksScroll { max-height: 200px; scrollbar-width: none; }
+.bidsScroll { max-height: 320px; scrollbar-width: none; }
+.asksScroll::-webkit-scrollbar,
+.bidsScroll::-webkit-scrollbar { width: 0; height: 0; }
+.obMidLine { display: none !important; }
+
+/* Hide scrollbars entirely */
+.asksScroll,
+.bidsScroll {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none !important; /* Firefox */
+  overflow-y: auto;
+}
+.asksScroll::-webkit-scrollbar,
+.bidsScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Final market detail skin to mirror reference --- */
+.obPanel {
+  border: none;
+  box-shadow: none;
+  padding: 8px 10px 10px;
+}
+.obTabBar { gap: 18px; margin-bottom: 12px; }
+.obTabBtn { font-size: 18px; padding: 8px 0 10px; }
+.obHeader {
+  grid-template-columns: 0.6fr 1fr 1fr;
+  font-size: 15px;
+  padding: 4px 6px 6px;
+}
+.obRow {
+  grid-template-columns: 0.6fr 1fr 1fr;
+  padding: 12px 12px;
+  font-size: 17px;
+  border-bottom: 1px solid #f2f4f5;
+}
+.askRow { background: #faeded; }
+.bidRow { background: #ffffff; }
+.bidsScroll .obRow:nth-child(even) { background: transparent !important; }
+.obPrice { font-weight: 700; font-size: 18px; }
+.obContracts { font-size: 18px; }
+.obSideTitle { font-size: 15px; padding: 4px 0 2px 2px; }
+.asksScroll { max-height: 200px; }
+.obMidLine { display: none !important; }
+.priceCell { gap: 2px; }
+.depthCell {
+  position: relative;
+  height: 100%;
+  background: #f4f7f4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.depthBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(16,185,129,0.25), rgba(16,185,129,0.05));
+}
+/* --- Overrides for compact market detail mock --- */
+.obPanel {
+  padding: 12px 14px 14px;
+  box-shadow: 0 8px 18px rgba(17, 24, 39, 0.05);
+}
+.obPanelHead { margin-bottom: 2px; }
+.obPanelTitle { font-size: 16px; font-weight: 700; }
+.obTabBar { gap: 18px; margin-bottom: 10px; }
+.obTabBtn { padding: 8px 0 10px; font-size: 17px; }
+.obTable { gap: 6px; }
+.obHeader { font-size: 15px; padding: 2px 6px 6px; }
+.obSideTitle { font-size: 15px; padding: 4px 0 2px 2px; }
+.obRows { background: transparent; }
+.asksScroll { max-height: 180px; }
+.bidsScroll { max-height: 320px; }
+.obRow {
+  grid-template-columns: 0.9fr 1.1fr;
+  padding: 12px 12px;
+  font-size: 17px;
+}
+.askRow { background: #fdeaea; }
+.bidRow { background: #fdfefc; }
+.bidsScroll .obRow:nth-child(even) { background: transparent !important; }
+.obPrice { font-weight: 700; font-size: 17px; }
+.obContracts { font-size: 17px; }
+.priceCell { gap: 2px; }
+.obMidLine { display: none; }
+/* --- New orderbook layout (matches mock 2) --- */
+.obPanel {
+  background: #fff;
+  border: 1px solid #e7ebf0;
+  border-radius: 14px;
+  padding: 16px 16px 18px;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.06);
+}
+
+.obPanelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.obPanelTitle {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.obPanelLast {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.obPanelLastLabel {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.obPanelLastValue {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.obTabBar {
+  display: flex;
+  gap: 22px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.obTabBtn {
+  border: none;
+  background: transparent;
+  padding: 10px 0 12px;
+  font-size: 18px;
+  color: #6b7280;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.obTabBtn.active {
+  color: #10b981;
+  border-color: #10b981;
+  font-weight: 700;
+}
+
+.obTable {
+  display: grid;
+  gap: 8px;
+}
+
+.obHeader {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  padding: 4px 6px 6px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.obColPrice,
+.obColContracts {
+  text-align: center;
+}
+
+.obAsks,
+.obBids {
+  display: grid;
+  gap: 6px;
+}
+
+.obSideTitle {
+  font-weight: 700;
+  font-size: 16px;
+  padding: 6px 0 2px 4px;
+}
+
+.obSideTitle.asks {
+  color: #d62839;
+}
+
+.obSideTitle.bids {
+  color: #0c9a6c;
+}
+
+.obRows {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.asksScroll {
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.bidsScroll {
+  max-height: 240px !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+}
+
+.obRow {
+  min-height: 42px;
+}
+
+.obRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: center;
+  padding: 14px 12px;
+  font-size: 18px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.obRow:last-child {
+  border-bottom: none;
+}
+
+.askRow {
+  background: #ffecec;
+  color: #d62839;
+}
+
+.bidRow {
+  background: #fcfffd;
+}
+
+.obPrice {
+  text-align: center;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.obPrice.ask {
+  color: #d62839;
+}
+
+.obPrice.bid {
+  color: #0c9a6c;
+}
+
+.obContracts {
+  text-align: center;
+  z-index: 1;
+}
+
+.obTotal {
+  text-align: right;
+  padding-right: 10px;
+  z-index: 1;
+}
+
+.priceCell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  z-index: 1;
+}
+
+.priceCell.ask {
+  align-items: center;
+}
+
+
+.obMidLine {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+  color: #2563eb;
+  font-weight: 700;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  margin: 4px 0 6px 0;
+}
+
+.obEmptyRow {
+  padding: 14px 10px;
+  color: #9ca3af;
+  text-align: center;
+  background: #fafafa;
+}
+
+.obCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px 18px 14px 18px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.obTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.obTitle {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.obLastLabel {
+  font-size: 14px;
+  color: #6b7280;
+  margin-right: 10px;
+}
+
+.obLastValue {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.obTabs2 {
+  display: flex;
+  gap: 22px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 14px;
+}
+
+.obTab2 {
+  font-size: 22px;
+  padding: 10px 0 12px 0;
+  cursor: pointer;
+  color: #111827;
+  position: relative;
+}
+
+.obTab2.active {
+  color: #059669;
+  font-weight: 700;
+}
+
+.obTab2.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: #10b981;
+}
+
+.obHeaderRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: #9ca3af;
+  font-size: 22px;
+  padding: 6px 0 10px 0;
+}
+
+.obHPrice { text-align: center; }
+.obHContracts { text-align: center; }
+.obHTotal { text-align: right; padding-right: 6px; }
+
+.obAsksBlock {
+  background: #fff1f2;
+  border-radius: 12px;
+  padding: 10px 10px 8px 10px;
+}
+
+.obBidsBlock {
+  background: #ecfdf5;
+  border-radius: 12px;
+  padding: 10px 10px 8px 10px;
+}
+
+.obSideLabel {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.obSideLabel.asks { color: #b91c1c; }
+.obSideLabel.bids { color: #047857; }
+
+.obScrollArea {
+  max-height: 310px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.obRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 16px 10px;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  font-size: 22px;
+  background: rgba(255,255,255,0.55);
+}
+
+.obRow:first-child { border-top: none; }
+
+.obPrice {
+  text-align: center;
+  font-weight: 800;
+}
+
+.obPrice.ask { color: #dc2626; }
+.obPrice.bid { color: #059669; }
+
+.obContracts { text-align: center; }
+.obTotal { text-align: right; padding-right: 6px; }
+
+.obEmptyRow {
+  padding: 18px 10px;
+  font-size: 20px;
+  color: #6b7280;
+}
+
+.obMidLine {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 14px 0;
+  margin: 12px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  color: #2563eb;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.bidRow {
+  overflow: hidden;
+}
+
+.obDepthBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(16, 185, 129, 0.12);
+  border-radius: 10px;
+  z-index: 0;
+}
+
+.bidRow > div {
+  position: relative;
+  z-index: 1;
+}
+
+/* Bid contracts green */
+.bidRow .obContracts { color: #0c9a6c !important; }
+
+/* Ensure bid hover applies to every row (even + odd) */
+.bidsScroll .obRow:nth-child(even):hover,
+.bidsScroll .obRow:nth-child(odd):hover,
+.bidsScroll .obRow:hover {
+  background: rgba(16, 185, 129, 0.12) !important;
+}
