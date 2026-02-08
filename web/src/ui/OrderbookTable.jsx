@@ -14,16 +14,28 @@ function fmtContracts(n) {
   return n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
-function normalizePriceToCents(p) {
-  if (!Number.isFinite(p)) return null;
-  // Polymarket prices arrive in dollars (0.xx); Kalshi in cents (xx).
-  return Math.round(Math.abs(p) <= 1.5 ? p * 100 : p);
-}
+function fmtPrice(p, isKalshi) {
+  if (!Number.isFinite(p)) return "-";
 
-function fmtPriceCents(p) {
-  const cents = normalizePriceToCents(p);
-  if (cents == null) return "-";
-  return `${cents}\u00A2`;
+  const isDollarInput = Math.abs(p) <= 1.5; // Polymarket sends dollars (0.xxx), Kalshi sends cents (xx)
+
+  if (isKalshi) {
+    // Kalshi feeds are already in cents; avoid interpreting small integers as dollars
+    const cents = Math.round(p);
+    return `${cents}\u00A2`;
+  }
+
+  // Polymarket: display in cents, preserving 0.1¢ (=$0.001) precision without rounding
+  if (isDollarInput) {
+    const centsTenths = Math.trunc(p * 1000) / 10; // dollars -> tenths of a cent, truncated
+    const decimals = centsTenths % 1 === 0 ? 0 : 1;
+    return `${centsTenths.toFixed(decimals)}\u00A2`;
+  }
+
+  // Fallback: if we ever receive cents here, keep one decimal
+  const centsTrunc = Math.trunc(p * 10) / 10;
+  const decimals = centsTrunc % 1 === 0 ? 0 : 1;
+  return `${centsTrunc.toFixed(decimals)}\u00A2`;
 }
 
 function bidsDictToRows(bidsDict) {
@@ -34,6 +46,21 @@ function bidsDictToRows(bidsDict) {
 
   rows.sort((a, b) => b[0] - a[0]);
   return rows;
+}
+
+function dedupeRows(rows) {
+  // Normalize numeric keys to avoid float string mismatches (e.g., 1 vs 1.0)
+  const seen = new Set();
+  const out = [];
+  for (const [price, size] of rows) {
+    const pKey = Number(price.toFixed(4)); // enough precision for cents and tenths of a cent
+    const sKey = Number((Number.isFinite(size) ? size : 0).toFixed(4));
+    const key = `${pKey}|${sKey}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push([price, size]);
+  }
+  return out;
 }
 
 function totalDollars(price, contracts) {
@@ -85,8 +112,8 @@ export default function OrderbookTable({ title, yesBook, noBook }) {
     return rows;
   };
 
-  const askRowsLimited = normalizeRows(view.askRows);
-  const bidRowsLimited = normalizeRows(view.bidRows);
+    const askRowsLimited = normalizeRows(dedupeRows(view.askRows));
+    const bidRowsLimited = normalizeRows(dedupeRows(view.bidRows));
 
   return (
     <div className="obPanel">
@@ -123,9 +150,9 @@ export default function OrderbookTable({ title, yesBook, noBook }) {
               <div className="obEmptyRow">-</div>
             ) : (
               askRowsLimited.map(([p, s], idx) => (
-                <div className="obRow askRow" key={`a-${p ?? idx}`}>
+                <div className="obRow askRow" key={`a-${idx}-${p ?? "blank"}`}>
                   <div className="obSpacer" />
-                  <div className="obPrice ask">{p == null ? "-" : fmtPriceCents(p)}</div>
+                  <div className="obPrice ask">{p == null ? "-" : fmtPrice(p, isKalshi)}</div>
                   <div className="obContracts">{s == null ? "-" : fmtContracts(s)}</div>
                 </div>
               ))
@@ -144,9 +171,9 @@ export default function OrderbookTable({ title, yesBook, noBook }) {
               <div className="obEmptyRow">-</div>
             ) : (
               bidRowsLimited.map(([p, s], idx) => (
-                <div className="obRow bidRow" key={`b-${p ?? idx}`}>
+                <div className="obRow bidRow" key={`b-${idx}-${p ?? "blank"}`}>
                   <div className="obSpacer" />
-                  <div className="obPrice bid">{p == null ? "-" : fmtPriceCents(p)}</div>
+                  <div className="obPrice bid">{p == null ? "-" : fmtPrice(p, isKalshi)}</div>
                   <div className="obContracts">{s == null ? "-" : fmtContracts(s)}</div>
                 </div>
               ))

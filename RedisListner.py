@@ -11,7 +11,7 @@ class RedisListener:
  
     async def start(self):
         """Start listening for new matches from discovery process"""
-        redis = await aioredis.from_url("redis://localhost")
+        redis = aioredis.from_url("redis://localhost", decode_responses=True)
         pubsub = redis.pubsub()
         
         # Subscribe to new_matches channel
@@ -20,8 +20,12 @@ class RedisListener:
         print("Listening for matches from discovery process...")
         
         async for message in pubsub.listen():
-            if message["type"] == "message":
-                await self._handle_new_match(message["data"])
+            if message.get("type") != "message":
+                continue
+            data = message.get("data")
+            if not data:
+                continue
+            await self._handle_new_match(data)
     
     async def _handle_new_match(self, data):
         """Handle incoming match from Redis"""

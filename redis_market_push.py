@@ -1,14 +1,15 @@
 import asyncio, json
+from pathlib import Path
 from redis import asyncio as aioredis
 
-async def send():
-    r = await aioredis.from_url("redis://localhost:6379")
-    msg = {
-"kalshi_ticker": "KXVENEZUELALEADER-26DEC31-EGON",
-"poly_yes_token": "85482789936744260311999371350699987044247644306653001528276695717482676507600",
-"poly_no_token": "70138439134789940151293221562290156019511842004756860386379046881297155754497"
-    }
+async def send(msg):
+    r = aioredis.from_url("redis://localhost:6379", decode_responses=True)
     await r.publish("new_matches", json.dumps(msg))
     await r.aclose()
 
-asyncio.run(send())
+json_path = Path(__file__).parent / "market_to_token" / "transformed_outputs.json"
+matches = json.loads(json_path.read_text(encoding="utf-8"))
+for msg in matches:
+    asyncio.run(send(msg))
+
+print("ALl Matches sent to Redis!")

@@ -1,0 +1,452 @@
+[
+{
+  "polymarket": {
+    "idx": "1275441",
+    "title": "Spread: AJ Auxerre (-1.5)",
+    "descriptor": "Spread: AJ Auxerre (-1.5) In the upcoming Ligue 1 game, scheduled for February 8 at 11:15 AM ET:\n\nThis market will resolve to \"AJ Auxerre\" if AJ Auxerre win the game by 2 or more goals.\n\nOtherwise, this market will resolve to \"Paris FC\".\n\nIf the game is postponed, this market will remain open until the game has been completed. If the game is canceled entirely, with no make-up game, this market will resolve 50–50.\n\nThis market will resolve according to the official final score published on ligue1.com. This market refers only to the outcome within the first 90 minutes of regular play plus stoppage time."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXLIGUE1SPREAD-26FEB08AUXPAR-AUX1",
+      "title": "Auxerre wins by over 1.5 goals?",
+      "descriptor": "Auxerre wins by over 1.5 goals? If Auxerre wins by more than 1.5 goals in the Paris at Auxerre professional Ligue 1 soccer game originally scheduled for Feb 8, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes. ",
+      "similarity": 0.8192546901740942
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "825558",
+    "title": "Will Michael Bennet win the 2026 Colorado Governor Democratic primary election?",
+    "descriptor": "Will Michael Bennet win the 2026 Colorado Governor Democratic primary election? This market will resolve according to the winner of the Democratic Primary for Governor of Colorado, scheduled to take place on June 30, 2026. Resolution will be based on the overall winner of the primary, including any potential second round or run-off.\n\nIf no 2026 Colorado Gubernatorial Democratic Primary takes place, this market will resolve to “Other.”\n\nThe resolution source for this market will be the first official announcement of the results from the Colorado Democratic Party; however, an overwhelming consensus of credible reporting may suffice."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXGOVCONOMD-26-MBEN",
+      "title": "Will Michael Bennet be the Democratic nominee for Governor in Colorado?",
+      "descriptor": "Will Michael Bennet be the Democratic nominee for Governor in Colorado? If Michael Bennet wins the nomination for the Democratic Party to contest the 2026 Colorado Governorship, then the market resolves to Yes. ",
+      "similarity": 0.8150126439320877
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1155442",
+    "title": "Will Western Sydney Wanderers FC vs. Melbourne City FC end in a draw?",
+    "descriptor": "Will Western Sydney Wanderers FC vs. Melbourne City FC end in a draw? In the upcoming game, scheduled for February 7, 2026\nIf the game ends in a draw, this market will resolve to \"Yes\".\nOtherwise, this market will resolve to \"No\".\nIf the game is postponed, this market will remain open until the game has been completed.\nIf the game is canceled entirely, with no make-up game, this market will resolve to \"Yes\".\nThis market refers only to the outcome within the first 90 minutes of regular play plus stoppage time."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXALEAGUEGAME-26FEB07WESMEL-TIE",
+      "title": "Western Sydney Wanderers vs Melbourne City Winner?",
+      "descriptor": "Western Sydney Wanderers vs Melbourne City Winner? If Tie wins the Western Sydney Wanderers vs Melbourne City professional Australia A League soccer game originally scheduled for Feb 7, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes. The following market refers to the Western Sydney Wanderers vs Melbourne City professional Australia A League soccer game originally scheduled for Feb 7, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties). If the game ends in a tie, the market called \"Tie\" resolves to Yes. If the game is cancelled or rescheduled to over two weeks away, the market will resolve to a fair price in accordance with the rules.",
+      "similarity": 0.8063272371697238
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "991976",
+    "title": "Will Caleb Downs be the third pick in the 2026 NFL draft?",
+    "descriptor": "Will Caleb Downs be the third pick in the 2026 NFL draft? This market will resolve according to the listed player who is drafted third overall in the 2026 NFL Draft.\n\nIf the 2026 NFL Draft is canceled or the third overall pick is not definitively known by July 30, 2026, 11:59 PM ET, this market will resolve to \"Other\".\n\nThe resolution source for this market will be official information from the NFL; however, a consensus of credible reporting may also be used."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXNFLDRAFTPICK-26-3-CDOW",
+      "title": "Who will be picked third in the Pro Football Draft?",
+      "descriptor": "Who will be picked third in the Pro Football Draft? If Caleb Downs is selected as the third overall pick in the 2026 Pro Football draft, then the market resolves to Yes. ",
+      "similarity": 0.9005584431898594
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1281061",
+    "title": "Will the Democratic Party win the CA-19 House seat?",
+    "descriptor": "Will the Democratic Party win the CA-19 House seat? This market will resolve according to the party of the candidate who wins the CA-19 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The midterm elections will take place on November 4, 2026.\n\n​A candidate's party will be determined by their ballot-listed or otherwise identifiable affiliation with that party at the time all of the 2026 House elections are conclusively called by this market's resolution sources. A candidate without a ballot-listed affiliation to either the Democrat or Republican parties will be considered a member of one of these parties based on the party with which they most recently expressed their intent to caucus at the time all of the House elections are conclusively called by this market's resolution sources.\n\nThis market will resolve based on the result of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the United States government, specifically the Federal Election Commission (https://www.fec.gov/)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXHOUSERACE-CA19-26-D",
+      "title": "Will Democratic win the House race for CA-19?",
+      "descriptor": "Will Democratic win the House race for CA-19? If the House member sworn in for CA-19 for the term beginning in 2027 is a member of the Democratic Party, then the market resolves to Yes. This market is eligible for accelerated determination after a consensus of media organizations project the winner. See full rules for details.",
+      "similarity": 0.7408990940675592
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1320543",
+    "title": "Will Mac Meissner win the 2026 WM Phoenix Open?",
+    "descriptor": "Will Mac Meissner win the 2026 WM Phoenix Open? This market will resolve according to the listed player who wins the 2026 WM Phoenix Open tournament.\n\nIf a listed player is eliminated from contention for the WM Phoenix Open tournament based on the official rules of the tournament, the relevant market will immediately resolve to \"No\".\n\nIf an unlisted player wins the WM Phoenix Open tournament this market will resolve to \"Other\".\n\nIn the event of a tie, this market will resolve according to the official winner as determined by PGA Tour official tournament rules. If multiple winners are announced then this market will resolve to the player whose listed last name comes first alphabetically.\n\nIf no winner is announced by February 14, 2026 at 7:00PM ET this market will resolve to \"Other\".\n\nThe primary resolution source will be the official results published by the PGA Tour website (https://www.pgatour.com/)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXPGATOUR-WMPO26-MMEI",
+      "title": "Will Mac Meissner win the WM Phoenix Open?",
+      "descriptor": "Will Mac Meissner win the WM Phoenix Open? If Mac Meissner wins the WM Phoenix Open, then the market resolves to Yes. ",
+      "similarity": 0.7863837160911156
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1270003",
+    "title": "US Lecce vs. Udinese Calcio: O/U 1.5",
+    "descriptor": "US Lecce vs. Udinese Calcio: O/U 1.5 In the upcoming Serie A game between US Lecce and Udinese Calcio, scheduled for February 8 at 9:00 AM ET:\n\nThis market will resolve to \"Over\" if US Lecce and Udinese Calcio combine to score 2 or more goals in this game.\n\nIf the combined total is less than 2, this market will resolve to \"Under\".\n\nIf the game is postponed, this market will remain open until the game has been completed. If the game is canceled entirely, with no make-up game, this market will resolve 50–50.\n\nIf the game is started but not completed, this market will resolve according to the official final score published on legaseriea.it. This market refers only to the outcome within the first 90 minutes of regular play plus stoppage time."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXSERIEATOTAL-26FEB08LECUDI-1",
+      "title": "Udinese at Lecce: Totals.",
+      "descriptor": "Udinese at Lecce: Totals. If Udinese and Lecce collectively score more than 1.5 total goals in the Udinese at Lecce professional Serie A soccer game originally scheduled for Feb 8, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes. ",
+      "similarity": 0.8284240456931419
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1323330",
+    "title": "Will the US federal government take a stake in Eli Lilly and Company?",
+    "descriptor": "Will the US federal government take a stake in Eli Lilly and Company? This market will resolve to “Yes” if the U.S. federal government takes a stake in the listed company by December 31, 2026, 11:59 PM ET. Otherwise, this market will resolve to “No”.\n\nTakes a stake refers to the U.S. federal government acquiring direct equity ownership, voting shares, convertible rights treated as equity, or equivalent ownership interests in the listed company or of a legal vehicle that primarily owns the listed company. Stakes acquired through independent entities entirely controlled or owned by the U.S. federal government (e.g. a sovereign wealth fund, state-owned enterprise, etc.) will count. Non-equity financial instruments or stakes acquired by private persons or entities not owned or controlled by the US federal government will not count; acquisitions by by states, pensions, index or mutual funds, or consortia will not qualify.\n\nAn official US federal government announcement of a completed qualifying acquisition, or of a binding agreement to complete a qualifying acquisition, within this market’s timeframe will be sufficient to resolve this market to “Yes”. Speculation, suggestions, plans, or other announcements which do not announce a completed acquisition or a binding acquisition agreement, however, will not count.\n\nThe resolution source for this market will be official information from the US federal government and a consensus of credible reporting."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXUSACOMPANYSTAKE-27JAN01-LLY",
+      "title": "Will any part of the United States federal government take a stake of above 0% in Eli Lilly?",
+      "descriptor": "Will any part of the United States federal government take a stake of above 0% in Eli Lilly? If any part of the United States federal government has taken a stake of Eli Lilly before Jan 1, 2027, then the market resolves to Yes. Taking a stake means acquiring direct equity ownership, voting shares, or equivalent ownership interests. This includes indirect ownership through wholly controlled investment vehicles and convertible rights treated as equity. Pre-existing stakes count toward the threshold. Ownership is aggregated across all share classes and listings. Crossing the threshold at any point satisfies the criterion regardless of subsequent changes. Non-equity instruments like bonds or loans don't qualify. Stakes by sovereign wealth funds or state-owned enterprises attributed to the body count. The value can be expressed as percentage ownership, monetary value, or share count, with percentage being the default unless specified.",
+      "similarity": 0.9037075163715655
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1342681",
+    "title": "Men's Group A - Canada vs. Switzerland",
+    "descriptor": "Men's Group A - Canada vs. Switzerland In the upcoming Men's Winter Olympics Hockey game, scheduled for 2026-02-13:\nIf Canada win, the market will resolve to \"Canada\".\nIf Switzerland win, the market will resolve to \"Switzerland\".\nIf the game is postponed, this market will remain open until the game has been completed.\nIf the game is canceled entirely, with no make-up game, this market will resolve 50-50.\nThe result will be determined based on the final score including any overtime periods and shootouts. In the event of a shootout, one goal will be added to the winning team's score for the purpose of resolution."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXWOMHOCKEY-26FEB13CANCHE-CAN",
+      "title": "Canada vs Switzerland Winner?",
+      "descriptor": "Canada vs Switzerland Winner? If Canada wins the Canada vs Switzerland Men's Olympic Ice Hockey game originally scheduled for Feb 13, 2026, then the market resolves to Yes. The following market refers to the team who wins Canada vs Switzerland Men's Olympic Ice Hockey game originally scheduled for Feb 13, 2026. If this game is postponed or delayed, the market will remain open and close after the rescheduled game has finished (within two weeks). If the cancelled game is not played or is rescheduled further than two weeks out, the market will resolve to a fair price for each team in accordance with the rules.",
+      "similarity": 0.8455713532330573
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1290404",
+    "title": "Crystal Palace FC vs. Burnley FC: O/U 2.5",
+    "descriptor": "Crystal Palace FC vs. Burnley FC: O/U 2.5 In the upcoming Premier League game between Crystal Palace FC and Burnley FC, scheduled for February 11 at 2:30 PM ET:\n\nThis market will resolve to \"Over\" if Crystal Palace FC and Burnley FC combine to score 3 or more goals in this game.\n\nIf the combined total is less than 3, this market will resolve to \"Under\".\n\nIf the game is postponed, this market will remain open until the game has been completed. If the game is canceled entirely, with no make-up game, this market will resolve 50–50.\n\nIf the game is started but not completed, this market will resolve according to the official final score published on premierleague.com. This market refers only to the outcome within the first 90 minutes of regular play plus stoppage time."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXEPLTOTAL-26FEB11CRYBUR-2",
+      "title": "Burnley at Crystal Palace: Totals.",
+      "descriptor": "Burnley at Crystal Palace: Totals. If Burnley and Crystal Palace collectively score more than 2.5 total goals in the Burnley at Crystal Palace professional EPL soccer game originally scheduled for Feb 11, 2026 after 90 minutes plus stoppage time (does not include extra time or penalties), then the market resolves to Yes. ",
+      "similarity": 0.8248986297270521
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1282881",
+    "title": "Will the Democratic Party win the CO-04 House seat?",
+    "descriptor": "Will the Democratic Party win the CO-04 House seat? This market will resolve according to the party of the candidate who wins the CO-04 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The midterm elections will take place on November 4, 2026.\n\n​A candidate's party will be determined by their ballot-listed or otherwise identifiable affiliation with that party at the time all of the 2026 House elections are conclusively called by this market's resolution sources. A candidate without a ballot-listed affiliation to either the Democrat or Republican parties will be considered a member of one of these parties based on the party with which they most recently expressed their intent to caucus at the time all of the House elections are conclusively called by this market's resolution sources.\n\nThis market will resolve based on the result of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the United States government, specifically the Federal Election Commission (https://www.fec.gov/)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXHOUSERACE-CO04-26-D",
+      "title": "Will Democratic win the House race for CO-04?",
+      "descriptor": "Will Democratic win the House race for CO-04? If the House member sworn in for CO-04 for the term beginning in 2027 is a member of the Democratic Party, then the market resolves to Yes. This market is eligible for accelerated determination after a consensus of media organizations project the winner. See full rules for details.",
+      "similarity": 0.7380719515665367
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "898414",
+    "title": "Will Isack Hadjar be the 2026 F1 Drivers' Champion?",
+    "descriptor": "Will Isack Hadjar be the 2026 F1 Drivers' Champion? This market will resolve according to the listed driver that finishes 1st in the driver standings for the 2026 F1 season.\n\nThis market will resolve as soon as the official results of the final scheduled race of the 2026 F1 season are known.\n\nIf multiple drivers tie for first place in the drivers standings, this market will resolve according to the tiebreak procedure used by F1 to determine the 2026 F1 Drivers’ champion.\n\nIf at any point it becomes impossible for a listed driver to win the 2026 F1 Drivers Championship based on the rules of F1 (e.g., they are mathematically eliminated from contention), the corresponding market will resolve to “No”.\n\nIf the F1 season is permanently canceled or has not been completed by March 31, 2027, 11:59 PM ET, this market will resolve to “Other”.\n\nThe primary resolution source for this market will be official information from Formula 1."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXF1-26-IH",
+      "title": "Will Isack Hadjar win the F1 Drivers Championship?",
+      "descriptor": "Will Isack Hadjar win the F1 Drivers Championship? If Isack Hadjar wins the F1 Drivers Championship, then the market resolves to Yes. ",
+      "similarity": 0.7411975881681943
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1222704",
+    "title": "Will Reiwa Shinsengumi win the most seats in the 2026 Japanese general election?",
+    "descriptor": "Will Reiwa Shinsengumi win the most seats in the 2026 Japanese general election? General elections are scheduled to be held in Japan on February 8, 2026.\n\nThis market will resolve according to the political party that wins the greatest number of seats in the next Japanese House of Representatives (衆議院, Shūgiin) election.\n\nIf the results are not known definitively by November 30, 2026, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties for the most seats won, this market will resolve in favor of the party that received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed abbreviation appears first in alphabetical order.\n\nThis market’s resolution will be based solely on the number of seats won by the named party in the House of Representatives of the Japanese National Diet.\n\nThis market will resolve based on the results of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results reported by the Japanese government, including the Ministry of Internal Affairs and Communications (https://www.soumu.go.jp/) or e-Stat (Japan’s government statistics portal; https://www.e-stat.go.jp/).\n\nNote: If a listed party contests the election as part of a jointly listed coalition with one or more parties not listed in this market (including through merger), the market corresponding to the listed party will represent the coalition and will count all seats won by the coalition collectively. If two or more listed parties contest the election as a jointly listed coalition (including through merger), with or without additional parties not listed in this market, the market corresponding to the party within that coalition that won the most seats in the previous election will represent the coalition and will count all seats won by the coalition collectively. If such a coalition dissolves, each market will again represent its respective party individually."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXJAPANHOUSE-28-REI",
+      "title": "Will Reiwa Shinsengumi win the next Japanese general election?",
+      "descriptor": "Will Reiwa Shinsengumi win the next Japanese general election? If the winner of next Japanese general election is the Reiwa Shinsengumi, then the market resolves to Yes. The market resolves based on the official certification or declaration by the relevant electoral authority. For a parliamentary election, the winner is the party or formal pre-election coalition that wins the most seats in the specified chamber, even if they do not form the government. If there is a tie for the most seats, the winner is the party that enters government; if that doesn't resolve the tie, the winner is the party with the higher share of the vote. If an election is postponed, the contract remains open until the new date, for a maximum of two years. Contested results are resolved based on the final certified outcome by the appropriate electoral authority or highest court with jurisdiction.",
+      "similarity": 0.8270037253605037
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "825534",
+    "title": "Will Robert Neuman win the 2026 Oregon Governor Republican primary election?",
+    "descriptor": "Will Robert Neuman win the 2026 Oregon Governor Republican primary election? This market will resolve according to the winner of the Republican Primary for Governor of Oregon, scheduled to take place on May 19, 2026. Resolution will be based on the overall winner of the primary, including any potential second round or run-off.\n\nIf no 2026 Oregon Gubernatorial Republican Primary takes place, this market will resolve to “Other.”\n\nThe resolution source for this market will be the first official announcement of the results from the Oregon Republican Party; however, an overwhelming consensus of credible reporting may suffice."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXGOVORNOMR-26-RNEU",
+      "title": "Will Robert Neuman be the Republican nominee for Governor in Oregon?",
+      "descriptor": "Will Robert Neuman be the Republican nominee for Governor in Oregon? If Robert Neuman wins the nomination for the Republican Party to contest the 2026 Oregon Governorship, then the market resolves to Yes. ",
+      "similarity": 0.8106475473971007
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "704288",
+    "title": "Will Luz Escamilla be the Democratic nominee for UT-01?",
+    "descriptor": "Will Luz Escamilla be the Democratic nominee for UT-01? This market will resolve according to the candidate who wins the nomination for the Democratic Party to contest the UT-01 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The Democratic primary will take place on June 23, 2026.\n\nIf no nominee is announced by November 3, 2026, 11:59PM ET, this market will resolve to \"Other\".\n\nThe resolution source for this market will be a consensus of official Democrat sources, including https://democrats.org/.\n\nAny replacement of the nominee before election day will not change the resolution of the market."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXUT1D-26-LESC",
+      "title": "Will Luz Escamilla be the Democratic nominee for UT-1?",
+      "descriptor": "Will Luz Escamilla be the Democratic nominee for UT-1? If Luz Escamilla wins the nomination for the Democratic Party to contest the 2026 UT-01 House seat, then the market resolves to Yes. ",
+      "similarity": 0.8823971044350596
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "706234",
+    "title": "Will Jeff Merkley be the Democratic nominee for Senate in Oregon?",
+    "descriptor": "Will Jeff Merkley be the Democratic nominee for Senate in Oregon? This market will resolve according to the winner of the Democratic Primary for United States Senator from Oregon.\n\nIf no 2026 Oregon Democratic Senate Primary takes place, this market will resolve to \"Other\".\n\nThe resolution source for this market will be the first announcement of the results from the Oregon Democratic party, however an overwhelming consensus of credible reporting may suffice."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXSENATEORD-26-JMER",
+      "title": "Wil Jeff Merkley be the Democratic nominee for the Senate in Oregon?",
+      "descriptor": "Wil Jeff Merkley be the Democratic nominee for the Senate in Oregon? If Jeff Merkley wins the nomination for the Democratic Party to contest the 2026 Senate Oregon Senate seat, then the market resolves to Yes. ",
+      "similarity": 0.7929753046542327
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1273285",
+    "title": "Will Kali Reis win Best Supporting Performance at the 41st Film Independent Spirit Awards?",
+    "descriptor": "Will Kali Reis win Best Supporting Performance at the 41st Film Independent Spirit Awards? The Film Independent Spirit Awards are presented annually by Film Independent. The ceremony for the 41st Film Independent Spirit Awards is scheduled for February 15, 2026.\n\nThis market will resolve according to the listed person who wins Best Supporting Performance at the 41st Film Independent Spirit Awards.\n\nIf, for any reason, no winner is declared by April 30, 2026, 11:59 PM ET, or in case of a tie for the winner, this market will resolve in favor of the listed person whose name comes first in alphabetical order.\n\nThe resolution source will be the television broadcast of the Film Independent Spirit Awards and the official Film Independent website (https://www.filmindependent.org/spirit-awards/); however, a consensus of credible reporting may also be used."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXFISPIRITAWARDS-26SUP-KAL",
+      "title": "Will Kali Reis win Best Supporting Performance award at the 41st Annual Film Independent Spirit Awards?",
+      "descriptor": "Will Kali Reis win Best Supporting Performance award at the 41st Annual Film Independent Spirit Awards? If Kali Reis wins the award for Best Supporting Performance at the 41st Annual Film Independent Spirit Awards, then the market resolves to Yes. **This market and these products have not been endorsed by Film Independent. Any references to Film Independent, the Film Independent Spirit Awards, or any associated marks are descriptive only and do not indicate an endorsement of this product or any affiliation between Film Independent and Kalshi.**",
+      "similarity": 0.8323919744350649
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "558936",
+    "title": "Will France win the 2026 FIFA World Cup?",
+    "descriptor": "Will France win the 2026 FIFA World Cup? This market will resolve according to the national team that wins the 2026 FIFA World Cup.\n\nIf at any point it becomes impossible for this team to win the FIFA World Cup based on the rules of FIFA (e.g., they are eliminated in the knockout stage), this market will resolve immediately to “No”.\n\nIf the 2026 FIFA World Cup is permanently canceled or has not been completed by October 13, 2026, 11:59 PM this market will resolve to “Other”.\n\nThe primary resolution source will be official information from FIFA, however, a consensus of credible reporting may also be used."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXMENWORLDCUP-26-FR",
+      "title": "Will the France win the 2026 Men's World Cup?",
+      "descriptor": "Will the France win the 2026 Men's World Cup? If France wins the 2026 Men's World Cup, then the market resolves to Yes. ",
+      "similarity": 0.7894889273779442
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1229473",
+    "title": "Will Spike Jonze win Best Director of Commercials at the 78th DGA Awards?",
+    "descriptor": "Will Spike Jonze win Best Director of Commercials at the 78th DGA Awards? The DGA Awards are presented annually by the Directors Guild of America. The ceremony for the 78th Annual DGA Awards is scheduled for February 7, 2026.\n\nThis market will resolve according to the listed person that wins the Commercials category at the 78th Annual DGA Awards.\n\nIf, for any reason, no winner is declared by April 30, 2026, 11:59 PM ET, or in case of a tie for the winner, this market will resolve in favor of the listed person whose name comes first in alphabetical order.\n\nThe resolution source will be the television broadcast of the DGA Awards and the official DGA website (https://www.dga.org/awards/annual); however, a consensus of credible reporting may also be used."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXDGAAWARDS-26-COM-SPIK",
+      "title": "Will Spike Jonze win Outstanding Directorial Achievement in Commercials award at 78th Annual DGA Awards?",
+      "descriptor": "Will Spike Jonze win Outstanding Directorial Achievement in Commercials award at 78th Annual DGA Awards? If Spike Jonze wins the Outstanding Directorial Achievement in Commercials at the 78th Annual DGA Awards, then the market resolves to Yes. ",
+      "similarity": 0.8616928905234863
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1090008",
+    "title": "Will Mateusz Gamrot be the UFC Lightweight Champion on December 31, 2026?",
+    "descriptor": "Will Mateusz Gamrot be the UFC Lightweight Champion on December 31, 2026? This market will resolve according to the official UFC Lightweight division champion on December 31, 2026 at 12:00 PM ET.\n\nOnly official UFC division champions will count. Interim champions will not count.\n\nIf the relevant belt is vacant at this market’s check time, or there is otherwise no champion in the specified division, this market will resolve to “Other”.\n\nThe primary resolution source for this market will be official information from the UFC (https://www.ufc.com/athletes)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXUFCLIGHTWEIGHTTITLE-26-MGAM",
+      "title": "Who will be the Lightweight Title Holder on Dec 31, 2026?",
+      "descriptor": "Who will be the Lightweight Title Holder on Dec 31, 2026? If Mateusz Gamrot is the UFC Lightweight Title Holder on Dec 31, 2026 at 12:00 PM ET, then the market resolves to Yes. ",
+      "similarity": 0.8708168292060093
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1229042",
+    "title": "Will Jonas Sulzbach win Big Brother Brasil 26?",
+    "descriptor": "Will Jonas Sulzbach win Big Brother Brasil 26? This market will resolve to the contestant who wins Big Brother Brasil 26.\n\nIf Big Brother Brasil 26 concludes without a winner being declared, or if Big Brother Brasil 26 has otherwise not concluded by April 30, 2026, 11:59PM ET this market will resolve to \"Other\". In the case of a tie, this market will resolve in favor of the listed contestant whose name comes first in alphabetical order. \n\nThis market will remain open until the conclusion of the season.\n\nThe resolution source for this market will be the official broadcast of the final episode of Big Brother Brasil 26."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXBIGBROTHERBRAZIL-27JAN01-JON",
+      "title": "Will Jonas Sulzbach win Big Brother Brasil 26?",
+      "descriptor": "Will Jonas Sulzbach win Big Brother Brasil 26? If Jonas Sulzbach is officially declared the winner of Big Brother Brasil 26 before Jan 1, 2027, then the market resolves to Yes. The winner must be officially announced in the finale or via official channels immediately following. Multiple joint winners each resolve to Yes with split payouts ($1 divided by number of winners). If no winner is declared, all markets resolve to No. Winners who decline the award still count unless acceptance was a condition of victory. Disqualifications or withdrawals before the finale resolve to No. Later title stripping doesn't affect resolution - the original finale announcement governs. Fan favorite or other secondary awards don't count as winning. For couples/teams competitions, being part of the winning unit counts.",
+      "similarity": 0.8991269625234347
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1284687",
+    "title": "Will the Republican Party win the SC-03 House seat?",
+    "descriptor": "Will the Republican Party win the SC-03 House seat? This market will resolve according to the party of the candidate who wins the SC-03 congressional district seat in the U.S. House of Representatives in the 2026 midterm elections. The midterm elections will take place on November 4, 2026.\n\n​A candidate's party will be determined by their ballot-listed or otherwise identifiable affiliation with that party at the time all of the 2026 House elections are conclusively called by this market's resolution sources. A candidate without a ballot-listed affiliation to either the Democrat or Republican parties will be considered a member of one of these parties based on the party with which they most recently expressed their intent to caucus at the time all of the House elections are conclusively called by this market's resolution sources.\n\nThis market will resolve based on the result of the election as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the United States government, specifically the Federal Election Commission (https://www.fec.gov/)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXHOUSERACE-SC03-26-R",
+      "title": "Will Republican win the House race for SC-03?",
+      "descriptor": "Will Republican win the House race for SC-03? If the House member sworn in for SC-03 for the term beginning in 2027 is a member of the Republican Party, then the market resolves to Yes. This market is eligible for accelerated determination after a consensus of media organizations project the winner. See full rules for details.",
+      "similarity": 0.7175846499630087
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "582162",
+    "title": "Will Valencia finish in the top 4 of the La Liga 2025–26 standings?",
+    "descriptor": "Will Valencia finish in the top 4 of the La Liga 2025–26 standings? This is a polymarket to predict which clubs finish in the top 4 of the La Liga standings for the 2025–26 season.\n\nIf the listed club officially finishes in the top 4 of the La Liga standings at the end of the season, the market will resolve to \"Yes.\" Otherwise, it will resolve to \"No.\"\n\nIf two or more clubs are tied on points for a top 4 position, resolution will follow the official La Liga tiebreaking procedures.\n\nIf the 2025–26 La Liga season is canceled or not completed before October 1, 2026, this market will resolve to \"No.\"\n\nThe primary resolution source will be official information from La Liga. A consensus of credible reporting may also be used."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXLALIGATOP4-26-VCF",
+      "title": "Will Valencia finish in the top 4 in the 2025-26 La Liga season?",
+      "descriptor": "Will Valencia finish in the top 4 in the 2025-26 La Liga season? If Valencia is a Top 4 Finisher in the 2025-26 La Liga season, then the market resolves to Yes. ",
+      "similarity": 0.8835308239116514
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "902155",
+    "title": "Will North Macedonia qualify for the 2026 FIFA World Cup?",
+    "descriptor": "Will North Macedonia qualify for the 2026 FIFA World Cup? This is a market on which teams will qualify for the 2026 FIFA World Cup.\n\nIf at any point it becomes impossible for this team to qualify for the FIFA World Cup based on the rules of FIFA (e.g. they cannot reach the required number of points to advance from its group or qualify for playoffs), this market will resolve immediately to “No”.\n\nIf the 2026 FIFA World Cup is permanently canceled or the qualifying stage has not been completed by September 30, 2026, 11:59 PM this market will resolve to “No”.\n\nThe resolution source for this market will be FIFA.  (https://www.fifa.com/en/tournaments/mens/worldcup)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXWCGROUPQUAL-26A-MKD",
+      "title": "Will North Macedonia qualify from World Cup Group A?",
+      "descriptor": "Will North Macedonia qualify from World Cup Group A? If North Macedonia is one of the teams to qualify from Group A for the Round of 32 in the 2026 FIFA World Cup, then the market resolves to Yes. ",
+      "similarity": 0.809440853148302
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1321397",
+    "title": "Will Gianni Infantino attend the 2026 State of the Union address?",
+    "descriptor": "Will Gianni Infantino attend the 2026 State of the Union address? The 2026 State of the Union address is scheduled to be held in the Chamber of the U.S. House of Representatives on February 24, 2026.\n\nThis market will resolve to \"Yes\" if the listed individual attends the 2026 State of the Union address. Otherwise, this market will resolve to \"No\".\n\nIf the event is canceled or postponed beyond March 31, 2026, 11:59 PM ET, this market will resolve to \"No\".\n\nFor the purpose of this market, attending the State of the Union address is defined as being in physical attendance during any part of the event.\n\nThe resolution source will be a consensus of credible reporting."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXATTENDSOTU-GINF",
+      "title": "Will Gianni Infantino attend the 2026 State of the Union Address?",
+      "descriptor": "Will Gianni Infantino attend the 2026 State of the Union Address? If Gianni Infantino attends the 2026 State of the Union Address, then the market resolves to Yes. Attendance is confirmed if the person is reported present at the event by any Source Agency, including social media posts by the person themselves. Brief appearances or partial attendance count as attendance.",
+      "similarity": 0.9091107392246152
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1347656",
+    "title": "Will Kazuya Yamada (JPN) win the gold medal for Winter Olympics 2026: Speed Skating - Men's 1500m at the 2026 Milano Cortina Winter Olympics?",
+    "descriptor": "Will Kazuya Yamada (JPN) win the gold medal for Winter Olympics 2026: Speed Skating - Men's 1500m at the 2026 Milano Cortina Winter Olympics? This market will resolve according to the participant (country team or individual participant as applicable to the event) that is awarded the gold medal at the 2026 Milano-Cortina Winter Olympics for Winter Olympics 2026: Speed Skating - Men's 1500m event at the time of the corresponding medal/podium ceremony. Subsequent disqualifications or amendments will not be considered.\n\nIf at any point it becomes impossible for a listed participant to win the 2026 Milano-Cortina Winter Olympics gold medal for Winter Olympics 2026: Speed Skating - Men's 1500m event per the rules of IOC (e.g., participant is eliminated), the corresponding market will resolve to \"No\".\n\nIf multiple participants are awarded the gold medal, this market will resolve in favor of the participant whose listed name comes first alphabetically, as listed in this market group.\n\nIf this event is postponed after March 31, 2026, 11:59 PM ET, canceled, or a gold medal has not been declared within this timeframe, this market will resolve to \"Other\".\n\nThe resolution source will be official information from the International Olympic Committee (https://www.olympics.com/)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXWOSSKATE-M150026GOLD-KYAM",
+      "title": "Will Kazuya Yamada win the gold medal in Speed Skating Men's 1500m?",
+      "descriptor": "Will Kazuya Yamada win the gold medal in Speed Skating Men's 1500m? If Kazuya Yamada wins the gold medal in the 2026 Winter Olympics Speed Skating Men's 1500m, then the market resolves to Yes. ",
+      "similarity": 0.8127981666450073
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "643675",
+    "title": "Will Reed Sheppard win the 2025–2026 NBA Most Improved Player?",
+    "descriptor": "Will Reed Sheppard win the 2025–2026 NBA Most Improved Player? This market will resolve according to the player who is awarded the 2025–26 NBA Most Improved Player.\n\nIf the listed player is not announced as a finalist for the 2025–26 Most Improved Player, this market will resolve to \"No\".\n\nThe primary resolution source for this market will be official information from the NBA. However, a consensus of credible reporting may also be used."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXNBAMIMP-26-RSHE",
+      "title": "Who will win Most Improved Player?",
+      "descriptor": "Who will win Most Improved Player? If Reed Sheppard wins the Pro basketball Most Improved Player in the 2025-26 season, then the market resolves to Yes. ",
+      "similarity": 0.861150056745055
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1105743",
+    "title": "Will Diosdado Cabello Rondón be the leader of Venezuela end of 2026?",
+    "descriptor": "Will Diosdado Cabello Rondón be the leader of Venezuela end of 2026? This market will resolve to the individual who officially holds the position of the head of state of Venezuela on Dec 31, 2026 at 12 PM ET.\n\nFor the purposes of this market, \"officially holds\" refers to the individual that was formally appointed, confirmed (if confirmation is required), and sworn in as the head of state of Venezuela or otherwise confirmed by official government information as being the head of state of Venezuela. \n\nIf the Venezuelan government does not clearly state who is the head of state, the market will resolve to the individual who is listed as the Head of State by the UN (see: https://www.un.org/dgacm/en/content/protocol/hshgnfa.  \n\nIn the event that more than one official head of state is listed by the Venezuelan  government, this market will resolve to the individual who is listed as having primary status. If no distinction is made, the market will resolve to the individual who first assumed the position. \n\nIf no individual holds the position this market will resolve to “No Head of State”. \n\nThe following do NOT constitute \"officially holding\" the role: nominated, announced, or designated as the head of state of Venezuela but appointment not yet effective; appointed with an effective date after Dec 31, 2026; previously served as the head of state of Venezuela but term has expired, resigned, or been terminated before Dec 31, 2026; serving as the head of state of Venezuela in a consultant, contractor, or unofficial capacity; named as successor or heir apparent to the head of state of Venezuela but not yet appointed; or holding a different role with oversight of the head of state of Venezuela but not the specified position itself.\n\nThe primary resolution source will be official information from the UN recognized government of Venezuela. If the Government of Venezuela does not clearly state who is the head of state, information from the UN and a consensus of credible reporting may be used. \n\nNote: this market is mutually exclusive. \n"
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXVENEZUELALEADER-26DEC31-DRON",
+      "title": "Will Diosdado Cabello Rondón be the head of state of Venezuela on Dec 31, 2026?",
+      "descriptor": "Will Diosdado Cabello Rondón be the head of state of Venezuela on Dec 31, 2026? If Diosdado Cabello Rondón officially holds the position of the head of state of Venezuela on Dec 31, 2026 at 10:00 AM ET, then the market resolves to Yes. For the purposes of this contract, \"officially holds\" means any of the following: Diosdado Cabello Rondón has been formally appointed, confirmed (if confirmation is required), and sworn in as the head of state of Venezuela; Diosdado Cabello Rondón is listed in official government directories, organizational charts, or equivalent authoritative sources as the head of state of Venezuela; or Diosdado Cabello Rondón is actively serving as the head of state of Venezuela with full authority and responsibilities (not suspended, on leave, or in acting/interim capacity unless explicitly specified).\n\n<p>The following do NOT constitute \"officially holding\" the role: nominated, announced, or designated as the head of state of Venezuela but appointment not yet effective; appointed with an effective date after Dec 31, 2026; previously served as the head of state of Venezuela but term has expired, resigned, or been terminated before Dec 31, 2026; serving as the head of state of Venezuela in a consultant, contractor, or unofficial capacity; named as successor or heir apparent to the head of state of Venezuela but not yet appointed; or holding a different role with oversight of the head of state of Venezuela but not the specified position itself.</p>",
+      "similarity": 0.9302772588123528
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1320466",
+    "title": "Will Harris English win the 2026 WM Phoenix Open?",
+    "descriptor": "Will Harris English win the 2026 WM Phoenix Open? This market will resolve according to the listed player who wins the 2026 WM Phoenix Open tournament.\n\nIf a listed player is eliminated from contention for the WM Phoenix Open tournament based on the official rules of the tournament, the relevant market will immediately resolve to \"No\".\n\nIf an unlisted player wins the WM Phoenix Open tournament this market will resolve to \"Other\".\n\nIn the event of a tie, this market will resolve according to the official winner as determined by PGA Tour official tournament rules. If multiple winners are announced then this market will resolve to the player whose listed last name comes first alphabetically.\n\nIf no winner is announced by February 14, 2026 at 7:00PM ET this market will resolve to \"Other\".\n\nThe primary resolution source will be the official results published by the PGA Tour website (https://www.pgatour.com/)."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXPGATOUR-WMPO26-HENG",
+      "title": "Will Harris English win the WM Phoenix Open?",
+      "descriptor": "Will Harris English win the WM Phoenix Open? If Harris English wins the WM Phoenix Open, then the market resolves to Yes. ",
+      "similarity": 0.7813490597753127
+    }
+  ]
+},
+{
+  "polymarket": {
+    "idx": "1313706",
+    "title": "Fresno State Bulldogs vs. Nevada Wolf Pack",
+    "descriptor": "Fresno State Bulldogs vs. Nevada Wolf Pack In the upcoming CBB game, scheduled for February 7 at 10:00 PM ET:\n\nIf the Fresno State Bulldogs win, the market will resolve to \"Fresno State Bulldogs\".\n\nIf the Nevada Wolf Pack win, the market will resolve to \"Nevada Wolf Pack\".\n\nIf the game is postponed, this market will remain open until the game has been completed.\n\nIf the game is canceled entirely, with no make-up game, this market will resolve 50-50.\n\nThe result will be determined based on the final score including any overtime periods."
+  },
+  "top_5_kalshi_candidates": [
+    {
+      "idx": "KXNCAAMBGAME-26FEB07FRESNEV-NEV",
+      "title": "Fresno St. at Nevada Winner?",
+      "descriptor": "Fresno St. at Nevada Winner? If Nevada wins the Fresno St. at Nevada men's college basketball game originally scheduled for Feb 7, 2026, then the market resolves to Yes. The following market refers to the team who wins the Fresno St. at Nevada men's college basketball game originally scheduled for Feb 7, 2026. If this game is postponed or delayed, the market will remain open and close after the rescheduled game has finished (within two weeks). If the cancelled game is not played or is rescheduled further than two weeks out, the market will resolve to a fair price for each team in accordance with the rules. Kalshi is not affiliated,  associated,  authorized, endorsed by, or in any way officially connected with the NCAA. All trademarks, logos, and brand names are the property of their respective owners.",
+      "similarity": 0.7906372482174361
+    }
+  ]
+}
+]

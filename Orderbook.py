@@ -83,7 +83,7 @@ class Orderbook:
 
             for m in data:
                 msg_type = m.get("type")
-                if msg_type is None or msg_type == "subscribed":
+                if msg_type is None or msg_type == "subscribed" or msg_type == "ping" or msg_type == "ok":
                     continue
 
                 payload = m.get("msg")
@@ -250,6 +250,8 @@ class Orderbook:
             # logger.info("DEBUG: Received Poly Data: " + str(data))
 
             if isinstance(data, list):
+                if not data:
+                    return
                 event_type = data[0]["event_type"]
             else:
                 event_type = data.get("event_type")
@@ -428,6 +430,8 @@ class Orderbook:
 
                     poly_ask = self.polymarket_orderbook[poly_asset]["bestAsk"]
                     poly_volume = self.polymarket_orderbook[poly_asset]["bestAskVolume"]
+                    if poly_ask is None:
+                        return False
 
                     hit, roi = Arbitrage.calc_arbitrage(
                     kalshi_ask / 100,
