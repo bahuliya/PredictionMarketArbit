@@ -96,14 +96,13 @@ class AsyncKalshiCollector:
                         ticker = market['ticker']
                         title = market['title']
                         rules_primary = market['rules_primary']
-                        rules_secondary = market.get('rules_secondary', '')
                         yes_sub_title = market.get('yes_sub_title', '')
                         no_sub_title = market.get('no_sub_title', '')
                         
                         if title and title[-1] not in punc:
                             title += '.'
 
-                        full_description = f"{title} {rules_primary} {rules_secondary}"
+                        full_description = f"{title} {rules_primary}"
                         new_markets.append((ticker, title, full_description, 'kalshi', yes_sub_title, no_sub_title))
 
                     total_markets += len(markets)

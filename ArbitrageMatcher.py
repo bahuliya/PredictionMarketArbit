@@ -1,16 +1,18 @@
 import json
 import numpy as np
-import re
 from sklearn.metrics.pairwise import cosine_similarity
-from anthropic import Anthropic
 from datetime import datetime
+import re, time
+from google import genai
+from google.genai import types
 
 
 class ArbitrageMatcher:
-    def __init__(self, top_n, api_key):
+    def __init__(self, top_n, api_key, gemini_batch_size):
         self.top_n = top_n
-        self.client = Anthropic(api_key=api_key)
+        self.client = genai.Client(api_key=api_key)
         self.matches = []
+        self.gemini_batch_size = gemini_batch_size
         
         # Track what we've already processed
         self.processed_tickers = set()
@@ -61,115 +63,232 @@ class ArbitrageMatcher:
 
         return candidates
 
-    def ask_claude(self, desc1, desc2, model):
-        """Ask Claude if two bets are the same event"""
-        system_prompt = """You are an expert at determining if two prediction market questions are asking about the same event. 
-        Compare the two markets and respond with only "yes" or "no". 
-        Ignore minor edge cases. Pro Football = Superbowl, Pro Basketball = NBA unless specified otherwise.
-        The entities and outcomes must match."""
+    def ask_gemini_request(self, key_desc, candidate_desc, key, sports=False):
+        if sports:
+            system_prompt = """
+                You are a sports betting market resolution expert. Determine whether two sports prediction markets represent the SAME underlying wager.
+
+                Treat markets as the SAME if the core sports proposition is identical, even if platforms differ in procedural or administrative rules.
+
+                Core elements that MUST match:
+                1. Same sport and league.
+                2. Same subject: same team(s) or same player (aliases and abbreviations allowed).
+                3. Same wager type and metric (e.g., moneyline, spread, total, team total, anytime TD, first TD, season stat leader).
+                4. Same threshold or condition (e.g., -1.5 vs -2.5 or Over 1.5 vs Over 2.5 = DIFFERENT).
+                5. Same time scope: same specific game date or same season/year.
+
+                Game identity rules:
+                - For player props, the game may be implicit. If the same player, league, and game date are specified, treat as the same game even if teams are not listed.
+                - For team or game bets, the teams and matchup must match.
+
+                Ignore differences in procedural wording (resolution source, postponement handling, fair-price rules) unless they change the core outcome being measured.
+
+                If any core element differs or is unclear, respond "no".
+
+                Respond with ONLY the word "yes" or "no".
+                """     
+        else:
+            system_prompt = """
+                You are a betting market resolution expert. Determine if two prediction markets refer to the EXACT SAME underlying event.
+
+                Markets must match on ALL of these factors:
+                1. Same person/team/entity (NOTE: the same people, teams, and entities can be referred to with different or abbreviated names)
+                2. Same specific event or outcome (note: "Super Bowl" and "Pro Football Championship" are the same event)
+                3. Same time frame (e.g., 2025 vs 2026 are DIFFERENT)
+                4. Same scope (e.g., "Top 8" vs "Round of 16" are DIFFERENT)
+                5. Same qualifying criteria
+
+                Examples of DIFFERENT markets:
+                - "X announces run for President in 2025" vs "X runs for Democratic nomination in 2028" (different scope and timeframe)
+                - "Team qualifies for Round of 16" vs "Team finishes in Top 8" (different thresholds)
+
+                Respond with ONLY the word "yes" or "no". Nothing else.
+                """     
+        
+        gemini_request = {
+            "request": {
+                'contents': [{'role': 'user', 'parts': [{'text': f'Market 1: "{key_desc}"\nMarket 2: "{candidate_desc}"\n\nRespond with only "yes" or "no":'}]}],
+                'config': {'system_instruction': {'parts': [{'text': system_prompt}]}, 'temperature': 0}
+            },
+            "metadata": {
+                "key": key
+            }
+        }
+        return gemini_request
+        
+    def ask_gemini_batch(self, inline_requests):
+        model = "gemini-3-flash-preview"
 
         try:
-            message = self.client.messages.create(
+            batch_job = self.client.batches.create(
                 model=model,
-                max_tokens=150,
-                temperature=0,
-                system=system_prompt,
-                messages=[{
-                    "role": "user",
-                    "content": f'Market 1: "{desc1}"\nMarket 2: "{desc2}"\n\nRespond with only "yes" or "no":'
-                }]
+                src=inline_requests,
             )
-            return message.content[0].text.strip().lower() == "yes"
-        except Exception as e:
-            print(f"Error calling Claude: {e}")
-            return False
 
-    def check_market_for_matches(self, ticker, all_markets, all_embeddings, similarity_threshold=0.7):
+            completed_states = set([
+                'JOB_STATE_SUCCEEDED',
+                'JOB_STATE_FAILED',
+                'JOB_STATE_CANCELLED',
+                'JOB_STATE_EXPIRED',
+            ])
+            while batch_job.state not in completed_states:
+                time.sleep(5)
+                batch_job = self.client.batches.get(name=batch_job.name)
+
+            if batch_job.state != "JOB_STATE_SUCCEEDED":
+                print(f"Batch job did not succeed. Final state: {batch_job.state}")
+                return []
+            
+            results = []
+            for inline_response in batch_job.dest.inlined_responses:
+                key = ""
+                if inline_response.response:
+                    key = inline_response.metadata.get("key", "")
+                    try:
+                        raw = inline_response.response.text if inline_response.response.text != None else ""
+                        clean = re.sub(r"[^a-z]+", "", raw.lower())
+                        results.append((key, clean == "yes"))
+                    except AttributeError:
+                        raw = inline_response.response if inline_response.response != None else ""
+                        clean = re.sub(r"[^a-z]+", "", raw.lower())
+                        results.append((key, clean == "yes"))
+                elif inline_response.error:
+                    print(f"Error: {inline_response.error}")
+                    results.append((key, False))  # Treat errors as non-matches
+                else:
+                    print("No response or error in inline response")
+                    results.append((key, False))  # Treat missing responses as non-matches
+                
+            return results
+        except Exception as e:
+            print(f"Error calling Gemini API: {e}")
+            return []
+
+    def check_markets_batch(self, tickers, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
         """
-        Check a single market for matches on the opposite platform
+        Check a batch of markets for matches on the opposite platform
+        Only pass in tickers - this function will determine the opposite platform internally
         
         Returns:
             dict: match data if found, None otherwise
         """
-        if ticker not in all_markets:
-            return None
-        
-        title, desc, source = all_markets[ticker][:3]
-        if source == 'polymarket':
-            poly_outcomes = all_markets[ticker][3]
-            poly_asset_ids = all_markets[ticker][4]
-        else:
-            yes_sub_title = all_markets[ticker][3]
-            no_sub_title = all_markets[ticker][4]
-            kalshi_title = all_markets[ticker][0]
-            kalshi_ticker = ticker
+        total_ticks_matches = []
+        total_ticks = len(tickers)
+        print(f"Processing {total_ticks} markets...\n")
 
-        # Determine target platform
-        target_source = 'kalshi' if source == 'polymarket' else 'polymarket'
-
-        # Get top N candidates
-        candidates = self.get_top_n_matches(ticker, target_source, all_markets, all_embeddings)
-        
-        if not candidates:
-            print("  ⊘ No candidates from opposite platform")
-            return None
-        
-        # Check similarity threshold
-        best_sim = candidates[0]['similarity']
-        if best_sim < similarity_threshold:
-            print(f"  ⊘ SKIPPED - Best similarity {best_sim:.3f} < {similarity_threshold}")
-            return None
-        
-        found_match = False
-        match_candidate = None
-        match_model = None
-        
-        # Try Haiku first
-        for candidate in candidates:
-            if candidate['similarity'] < 0.7:
-                continue
-            
-            if self.ask_claude(desc, candidate['description'], "claude-haiku-4-5-20251001"):
-                match_candidate = candidate
-                match_model = 'haiku'
-                print(f"  ✓ MATCH (Haiku, sim: {candidate['similarity']:.3f})")
-                print(f"    {target_source.upper()}: {candidate['title']}")
-                found_match = True
-                break
-        
-        # Try Sonnet if no Haiku match
-        if not found_match:
-            print("  → Retrying with Sonnet...")
-            for candidate in candidates:
-                if candidate['similarity'] < 0.7:
+        pos = 0
+        while pos < total_ticks:
+            curr_batch_size = 0
+            batch = {}
+            pos_local = 0
+            for i, ticker in enumerate(tickers[pos:], start=pos):
+                pos_local += 1
+                if ticker not in all_markets:
                     continue
-                
-                if self.ask_claude(desc, candidate['description'], "claude-sonnet-4-5-20250929"):
-                    match_candidate = candidate
-                    match_model = 'sonnet'
-                    print(f"  ✓ MATCH (Sonnet, sim: {candidate['similarity']:.3f})")
-                    print(f"    {target_source.upper()}: {candidate['title']}")
-                    found_match = True
+                title = all_markets[ticker][0]
+                if all_markets[ticker][2] == 'polymarket':
+                    target_source = 'kalshi'
+                else:                    
+                    target_source = 'polymarket'
+
+                # Get top N candidates
+                candidates = self.get_top_n_matches(ticker, target_source, all_markets, all_embeddings)
+                if not candidates:
+                    print("  ⊘ No candidates from opposite platform")
+                    continue
+                best_sim = candidates[0]['similarity']
+                if best_sim < similarity_threshold:
+                    print(f"  ⊘ SKIPPED - Best similarity {best_sim:.3f} < {similarity_threshold}")
+                    continue
+
+                batch[ticker] = []
+                for candidate in candidates:
+                    candidate_ticker = candidate['ticker']
+                    batch[ticker].append(candidate_ticker)
+
+                print(f"\n[{i+1}/{total_ticks}] Added to batch: {title}")
+                curr_batch_size += 1
+                if curr_batch_size >= self.gemini_batch_size or pos + pos_local >= total_ticks:
                     break
-        
-        if not found_match:
-            print("  ✗ NO MATCHES")
-            return None
-        
-        match_ticker = match_candidate['ticker']
+            
+            pos += pos_local
+            if not batch:
+                continue
 
-        if target_source == 'polymarket':
-            poly_outcomes = all_markets[match_ticker][3]
-            poly_asset_ids = all_markets[match_ticker][4]
-        else:
-            yes_sub_title = all_markets[match_ticker][3]
-            no_sub_title = all_markets[match_ticker][4]
-            kalshi_title = all_markets[match_ticker][0]
-            kalshi_ticker = match_ticker
+            for i in range(self.top_n):
+                inline_requests = []
+                for key, value in batch.items():
+                    candidate_ticker = value[i]
+                    inline_requests.append(self.ask_gemini_request(key_desc=all_markets[key][1], candidate_desc=all_markets[candidate_ticker][1], key=key, sports=sports))
+                
+                # Call Gemini API with the batch of requests
+                batch_results = self.ask_gemini_batch(inline_requests)
+                if batch_results: 
+                    count_matches = 0
+                    for key, is_match in batch_results:
+                        if is_match:
+                            candidates = batch[key]
+                            candidate_ticker = candidates[i]
 
-        poly_yes_id, poly_no_id, kalshi_ticker = self._map_polymarket_yes_no(poly_outcomes, poly_asset_ids, yes_sub_title, no_sub_title, kalshi_title, kalshi_ticker)
-        print(poly_outcomes, poly_asset_ids, yes_sub_title, no_sub_title, kalshi_title, kalshi_ticker)
-        return (poly_yes_id, poly_no_id, kalshi_ticker)
+                            source = all_markets[key][2]
+                            if source == 'polymarket':
+                                poly_outcomes = all_markets[key][3]
+                                poly_asset_ids = all_markets[key][4]
+                                yes_sub_title = all_markets[candidate_ticker][3]
+                                no_sub_title = all_markets[candidate_ticker][4]
+                                kalshi_title = all_markets[candidate_ticker][0]
+                                kalshi_ticker = candidate_ticker
+                            else:
+                                poly_outcomes = all_markets[candidate_ticker][3]
+                                poly_asset_ids = all_markets[candidate_ticker][4]
+                                yes_sub_title = all_markets[key][3]
+                                no_sub_title = all_markets[key][4]
+                                kalshi_title = all_markets[key][0]
+                                kalshi_ticker = key
+
+                            poly_yes_id, poly_no_id, kalshi_ticker = self._map_polymarket_yes_no(poly_outcomes, poly_asset_ids, yes_sub_title, no_sub_title, kalshi_title, kalshi_ticker)
+                            total_ticks_matches.append((poly_yes_id, poly_no_id, kalshi_ticker))
+                            batch.pop(key)  # Remove from batch to avoid further checks
+                            count_matches += 1
+                    print(f"Batch run completed with {count_matches} matches found")
+                else:
+                    print("Batch run completed with no matches found or an error occurred")
+            
+            no_match = 0
+            for key, value in batch.items():
+                candidates_titles = []
+                for candidate_ticker in value:
+                    candidates_titles.append(
+                        {
+                            "id": candidate_ticker,
+                            "title": all_markets[candidate_ticker][0],
+                            "desc": all_markets[candidate_ticker][1],
+                        }
+                    )
+
+                no_match_data = {
+                    all_markets[key][2]: {
+                        "id": key,
+                        "title": all_markets[key][0],
+                        "descriptor": all_markets[key][1],
+                    },
+                    "candidates": candidates_titles,
+                    "match": False,
+                    "timestamp": datetime.now().isoformat(),
+                }
+
+                # Save failure to JSON file
+                with open("./failures/matching_failures.json", "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                data.append(no_match_data)
+                with open("./failures/matching_failures.json", "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
+
+                no_match += 1
+            print(f"Batch completed with {no_match} no matches recorded")
+
+        print(f"\n✓ Completed! Found {len(total_ticks_matches)} total matches")
+        return total_ticks_matches
     
     def _map_polymarket_yes_no(self, poly_outcomes, poly_asset_ids, yes_sub_title, no_sub_title, kalshi_title, kalshi_ticker):
         poly_yes_id = None
@@ -200,14 +319,13 @@ class ArbitrageMatcher:
                 poly_yes_id, poly_no_id = poly_asset_ids[1], poly_asset_ids[0]
             else:
                 yes_text = norm(yes_sub_title)
-                no_text = norm(no_sub_title)
+                # no_text = norm(no_sub_title)
                 full = norm(f"{kalshi_title} {kalshi_ticker}")
 
                 def score(o):
                     v = expand_outcome(o)
                     return (
                         int(any(x in yes_text for x in v)),
-                        int(any(x in no_text for x in v)),
                         int(any(x in full for x in v)),
                     )
 
@@ -216,16 +334,23 @@ class ArbitrageMatcher:
                     poly_yes_id, poly_no_id = poly_asset_ids[0], poly_asset_ids[1]
                 elif s1 > s0:
                     poly_yes_id, poly_no_id = poly_asset_ids[1], poly_asset_ids[0]
+                else:
+                    # Log into JSON file for manual review
+                    payload = {"kalshi_ticker": kalshi_ticker, "kalshi_title": kalshi_title, "yes_sub_title": yes_sub_title, "no_sub_title": no_sub_title, "poly_outcomes": poly_outcomes, "poly_asset_ids": poly_asset_ids}
+                    with open("./failures/mapping_failures.json", "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    data.append(payload)
+                    with open("./failures/mapping_failures.json", "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=2, ensure_ascii=False)
                     
         return poly_yes_id, poly_no_id, kalshi_ticker
-
 
     def save_matches(self, path="data/arbitrage_matches.json"):
         """Save matches to JSON"""
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.matches, f, indent=2, ensure_ascii=False)
 
-    def run_initial_matching(self, all_markets, all_embeddings, similarity_threshold=0.7):
+    def run_initial_matching(self, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
         """
         Run matching on all initial markets
         
@@ -244,34 +369,26 @@ class ArbitrageMatcher:
             ticker for ticker, market_info in all_markets.items()
             if market_info[2] == 'polymarket'  # source is at index 2
         ]
-        
-        print(f"Processing {len(poly_tickers)} Polymarket markets...\n")
-        
+
+        batch_matches = self.check_markets_batch(tickers=poly_tickers, all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold, sports=sports)
         match_count = 0
-        for i, ticker in enumerate(poly_tickers):
-            print(f"[{i+1}/{len(poly_tickers)}]", end=" ")
-            ids = self.check_market_for_matches(
-                ticker, 
-                all_markets, 
-                all_embeddings, 
-                similarity_threshold
-            )
-            if ids:
-                match_count += 1
+        for match in batch_matches:
+            if match[0] and match[1] and match[2]:  # Ensure all IDs are present
                 match_data = {
-                    "poly_yes_token" : ids[0],
-                    "poly_no_token" : ids[1],
-                    "kalshi_ticker" : ids[2]
+                    "poly_yes_token": match[0],
+                    "poly_no_token": match[1],
+                    "kalshi_ticker": match[2]
                 }
                 self.matches.append(match_data)
                 self.save_matches()
+                match_count += 1
                 yield match_data
         
         print("\n" + "="*60)
         print(f"INITIAL MATCHING COMPLETE - {match_count} matches found")
         print("="*60 + "\n")
 
-    def check_new_markets(self, all_markets, all_embeddings, similarity_threshold=0.7):
+    def check_new_markets(self, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
         """
         Check for any new markets since last check
         
@@ -279,28 +396,21 @@ class ArbitrageMatcher:
         """
         current_tickers = set(all_markets.keys())
         new_tickers = current_tickers - self.processed_tickers
+        self.processed_tickers.update(new_tickers)
         
+        batch_matches = self.check_markets_batch(tickers=list(new_tickers), all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold, sports=sports)
         match_count = 0
-        for ticker in new_tickers:
-            # Only process if embedding is ready
-            if ticker in all_embeddings:
-                ids = self.check_market_for_matches(
-                    ticker,
-                    all_markets,
-                    all_embeddings,
-                    similarity_threshold
-                )
-                if ids:
-                    match_count += 1
-                    match_data = {
-                        "poly_yes_token": ids[0],
-                        "poly_no_token": ids[1],
-                        "kalshi_ticker": ids[2]
-                    }
-                    self.matches.append(match_data)
-                    self.save_matches()
-                    yield match_data
-                self.processed_tickers.add(ticker)
+        for match in batch_matches:
+            if match[0] and match[1] and match[2]:  # Ensure all IDs are present
+                match_data = {
+                    "poly_yes_token": match[0],
+                    "poly_no_token": match[1],
+                    "kalshi_ticker": match[2]
+                }
+                self.matches.append(match_data)
+                self.save_matches()
+                match_count += 1
+                yield match_data
         
         if new_tickers:
             print(f"Checked {len(new_tickers)} new markets, found {match_count} matches")

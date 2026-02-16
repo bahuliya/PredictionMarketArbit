@@ -3,19 +3,19 @@ from EmbeddingConversion import EmbeddingConversion
 from collectors.kalshi_collector import AsyncKalshiCollector
 from collectors.polymarket_collector import AsyncPolymarketCollector
 from MatchPublisher import MatchPublisher
-import asyncio
+import asyncio, time, os
 from datetime import datetime, timezone
-import time
 
 '''
 Current Model - Qwen/Qwen3-Embedding-4B
 Test Model - "all-MiniLM-L6-v2"
 '''
-API_KEY = "***REMOVED-ANTHROPIC-API-KEY***"
+API_KEY = os.getenv("GEMINI_API_KEY")
 TOP_N = 10
 BATCH_SIZE = 32
 SAVE_INTERVAL = 60
 UPDATE_INTERVAL = 30
+API_BATCH_SIZE = 10
 
 async def main():
 

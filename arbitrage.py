@@ -18,10 +18,10 @@ class Arbitrage:
         return gas_fee
 
     def calc_arbitrage(kalshi_ask, kalshi_vol, poly_ask, poly_vol):
-        capital =  1000
+        capital =  500
         target_roi = 0.25
 
-        gas = .07
+        gas = .1
         adjusted_capital = capital - gas
         cost_per_contract = kalshi_ask + poly_ask + (0.07 * kalshi_ask * (1 - kalshi_ask))
         contracts = min(adjusted_capital / cost_per_contract , kalshi_vol, poly_vol)
