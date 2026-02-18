@@ -164,7 +164,7 @@ class ArbitrageMatcher:
             print(f"Error calling Gemini API: {e}")
             return []
 
-    def check_markets_batch(self, tickers, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
+    def check_markets_batch(self, tickers, all_markets, all_embeddings, similarity_threshold=0.7):
         """
         Check a batch of markets for matches on the opposite platform
         Only pass in tickers - this function will determine the opposite platform internally
@@ -219,6 +219,9 @@ class ArbitrageMatcher:
                 inline_requests = []
                 for key, value in batch.items():
                     candidate_ticker = value[i]
+                    sports = False
+                    if (all_markets[key][2] == 'polymarket' and all_markets[key][5]) or (all_markets[candidate_ticker][2] == 'polymarket' and all_markets[candidate_ticker][5]):
+                        sports = True
                     inline_requests.append(self.ask_gemini_request(key_desc=all_markets[key][1], candidate_desc=all_markets[candidate_ticker][1], key=key, sports=sports))
                 
                 # Call Gemini API with the batch of requests
@@ -350,7 +353,7 @@ class ArbitrageMatcher:
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.matches, f, indent=2, ensure_ascii=False)
 
-    def run_initial_matching(self, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
+    def run_initial_matching(self, all_markets, all_embeddings, similarity_threshold=0.7):
         """
         Run matching on all initial markets
         
@@ -370,7 +373,7 @@ class ArbitrageMatcher:
             if market_info[2] == 'polymarket'  # source is at index 2
         ]
 
-        batch_matches = self.check_markets_batch(tickers=poly_tickers, all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold, sports=sports)
+        batch_matches = self.check_markets_batch(tickers=poly_tickers, all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold)
         match_count = 0
         for match in batch_matches:
             if match[0] and match[1] and match[2]:  # Ensure all IDs are present
@@ -398,7 +401,7 @@ class ArbitrageMatcher:
         new_tickers = current_tickers - self.processed_tickers
         self.processed_tickers.update(new_tickers)
         
-        batch_matches = self.check_markets_batch(tickers=list(new_tickers), all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold, sports=sports)
+        batch_matches = self.check_markets_batch(tickers=list(new_tickers), all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold)
         match_count = 0
         for match in batch_matches:
             if match[0] and match[1] and match[2]:  # Ensure all IDs are present

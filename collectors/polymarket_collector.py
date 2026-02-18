@@ -29,7 +29,8 @@ class AsyncPolymarketCollector:
                 "offset": offset,
                 "closed": "false",
                 "order": "createdAt",
-                "ascending": "true"
+                "ascending": "true",
+                "include_tag": "true"
             }  
             
             if self.last_update_creation is not None:
@@ -51,6 +52,13 @@ class AsyncPolymarketCollector:
                         raw_creation_time = market["createdAt"]
                         outcomes = market["outcomes"]
                         ids = market["clobTokenIds"]
+                        sports = False
+                        for tag in market.get("tags", []):
+                            tag_num = tag.get("id")
+                            if tag_num and int(tag_num) == 1:
+                                sports = True
+                                break
+
                         creation_time = datetime.fromisoformat(raw_creation_time.replace("Z", "+00:00"))
                         if self.last_update_creation is not None and creation_time <= self.last_update_creation:
                             if latest_creation_time is not None:
@@ -60,7 +68,7 @@ class AsyncPolymarketCollector:
                             return markets
                         if latest_creation_time is None or creation_time > latest_creation_time:
                             latest_creation_time = creation_time
-                        markets.append((market_id, title, full_text, 'polymarket', outcomes, ids))
+                        markets.append((market_id, title, full_text, 'polymarket', outcomes, ids, sports))
                     total_markets += len(data)
                     if total_markets > 0:
                         print(f"Poly: {total_markets} fetched so far!")
