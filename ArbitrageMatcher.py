@@ -65,6 +65,7 @@ class ArbitrageMatcher:
 
     def ask_gemini_request(self, key_desc, candidate_desc, key, sports=False):
         if sports:
+            print("sports")
             system_prompt = """
                 You are a sports betting market resolution expert. Determine whether two sports prediction markets represent the SAME underlying wager.
 
@@ -106,10 +107,8 @@ class ArbitrageMatcher:
                 """     
         
         gemini_request = {
-            "request": {
-                'contents': [{'role': 'user', 'parts': [{'text': f'Market 1: "{key_desc}"\nMarket 2: "{candidate_desc}"\n\nRespond with only "yes" or "no":'}]}],
-                'config': {'system_instruction': {'parts': [{'text': system_prompt}]}, 'temperature': 0}
-            },
+            'contents': [{'role': 'user', 'parts': [{'text': f'Market 1: "{key_desc}"\nMarket 2: "{candidate_desc}"\n\nRespond with only "yes" or "no":'}]}],
+            'config': {'system_instruction': {'parts': [{'text': system_prompt}]}, 'temperature': 0},
             "metadata": {
                 "key": key
             }
@@ -132,6 +131,7 @@ class ArbitrageMatcher:
                 'JOB_STATE_EXPIRED',
             ])
             while batch_job.state not in completed_states:
+                print(f"Current state: {batch_job.state.name}")
                 time.sleep(5)
                 batch_job = self.client.batches.get(name=batch_job.name)
 
