@@ -1,18 +1,20 @@
 import json
 import numpy as np
+import asyncio
 from sklearn.metrics.pairwise import cosine_similarity
 from datetime import datetime
-import re, time
+import re
 from google import genai
 from google.genai import types
 
 
 class ArbitrageMatcher:
-    def __init__(self, top_n, api_key, gemini_batch_size):
+    def __init__(self, top_n, api_key, gemini_batch_size, max_concurrent=20):
         self.top_n = top_n
         self.client = genai.Client(api_key=api_key)
         self.matches = []
         self.gemini_batch_size = gemini_batch_size
+        self.max_concurrent = max_concurrent
         
         # Track what we've already processed
         self.processed_tickers = set()
@@ -63,9 +65,8 @@ class ArbitrageMatcher:
 
         return candidates
 
-    def ask_gemini_request(self, key_desc, candidate_desc, key, sports=False):
+    async def call_gemini_async(self, semaphore, key_desc, candidate_desc, key, sports=False):
         if sports:
-            print("sports")
             system_prompt = """
                 You are a sports betting market resolution expert. Determine whether two sports prediction markets represent the SAME underlying wager.
 
@@ -106,65 +107,43 @@ class ArbitrageMatcher:
                 Respond with ONLY the word "yes" or "no". Nothing else.
                 """     
         
-        gemini_request = {
-            'contents': [{'role': 'user', 'parts': [{'text': f'Market 1: "{key_desc}"\nMarket 2: "{candidate_desc}"\n\nRespond with only "yes" or "no":'}]}],
-            'config': {'system_instruction': {'parts': [{'text': system_prompt}]}, 'temperature': 0},
-            "metadata": {
-                "key": key
-            }
-        }
-        return gemini_request
-        
-    def ask_gemini_batch(self, inline_requests):
         model = "gemini-3-flash-preview"
-
-        try:
-            batch_job = self.client.batches.create(
-                model=model,
-                src=inline_requests,
-            )
-
-            completed_states = set([
-                'JOB_STATE_SUCCEEDED',
-                'JOB_STATE_FAILED',
-                'JOB_STATE_CANCELLED',
-                'JOB_STATE_EXPIRED',
-            ])
-            while batch_job.state not in completed_states:
-                print(f"Current state: {batch_job.state.name}")
-                time.sleep(5)
-                batch_job = self.client.batches.get(name=batch_job.name)
-
-            if batch_job.state != "JOB_STATE_SUCCEEDED":
-                print(f"Batch job did not succeed. Final state: {batch_job.state}")
-                return []
-            
-            results = []
-            for inline_response in batch_job.dest.inlined_responses:
-                key = ""
-                if inline_response.response:
-                    key = inline_response.metadata.get("key", "")
-                    try:
-                        raw = inline_response.response.text if inline_response.response.text != None else ""
-                        clean = re.sub(r"[^a-z]+", "", raw.lower())
-                        results.append((key, clean == "yes"))
-                    except AttributeError:
-                        raw = inline_response.response if inline_response.response != None else ""
-                        clean = re.sub(r"[^a-z]+", "", raw.lower())
-                        results.append((key, clean == "yes"))
-                elif inline_response.error:
-                    print(f"Error: {inline_response.error}")
-                    results.append((key, False))  # Treat errors as non-matches
-                else:
-                    print("No response or error in inline response")
-                    results.append((key, False))  # Treat missing responses as non-matches
+        contents = f'Market 1: "{key_desc}"\nMarket 2: "{candidate_desc}"\n\nRespond with only "yes" or "no":'
+       
+        async with semaphore:
+            try:
+                response = await asyncio.to_thread(
+                    self.client.models.generate_content,
+                    model=model,
+                    contents=contents,
+                    config=types.GenerateContentConfig(
+                        system_instruction=system_prompt,
+                        temperature=0,
+                    ),
+                )
+                raw = response.text if response.text is not None else ""
+                clean = re.sub(r"[^a-z]+", "", raw.lower())
+                return (key, clean == "yes")
+            except Exception as e:
+                print(f"Error calling Gemini API for key {key}: {e}")
+                return (key, False)
                 
-            return results
-        except Exception as e:
-            print(f"Error calling Gemini API: {e}")
-            return []
+    async def ask_gemini_async(self, requests):
+        semaphore = asyncio.Semaphore(self.max_concurrent)
+        tasks = []
+        for r in requests:
+            task = self.call_gemini_async(
+                semaphore=semaphore,
+                key_desc=r["key_desc"],
+                candidate_desc=r["candidate_desc"],
+                key=r["key"],
+                sports=r.get("sports", False),
+            )
+            tasks.append(task)
+        results = await asyncio.gather(*tasks)
+        return list(results)
 
-    def check_markets_batch(self, tickers, all_markets, all_embeddings, similarity_threshold=0.7):
+    async def check_markets_batch(self, tickers, all_markets, all_embeddings, similarity_threshold=0.7):
         """
         Check a batch of markets for matches on the opposite platform
         Only pass in tickers - this function will determine the opposite platform internally
@@ -216,16 +195,24 @@ class ArbitrageMatcher:
                 continue
 
             for i in range(self.top_n):
-                inline_requests = []
+                requests = []
                 for key, value in batch.items():
                     candidate_ticker = value[i]
                     sports = False
                     if (all_markets[key][2] == 'polymarket' and all_markets[key][5]) or (all_markets[candidate_ticker][2] == 'polymarket' and all_markets[candidate_ticker][5]):
                         sports = True
-                    inline_requests.append(self.ask_gemini_request(key_desc=all_markets[key][1], candidate_desc=all_markets[candidate_ticker][1], key=key, sports=sports))
+                    requests.append({
+                        "key": key,
+                        "key_desc": all_markets[key][1],
+                        "candidate_desc": all_markets[candidate_ticker][1],
+                        "sports": sports,
+                    })
                 
-                # Call Gemini API with the batch of requests
-                batch_results = self.ask_gemini_batch(inline_requests)
+                if not requests:
+                    continue
+
+                # Call Gemini API with the async requests
+                batch_results = await self.ask_gemini_async(requests)
                 if batch_results: 
                     count_matches = 0
                     for key, is_match in batch_results:
@@ -296,8 +283,6 @@ class ArbitrageMatcher:
     def _map_polymarket_yes_no(self, poly_outcomes, poly_asset_ids, yes_sub_title, no_sub_title, kalshi_title, kalshi_ticker):
         poly_yes_id = None
         poly_no_id = None
-        kalshi_yes_id = None
-        kalshi_no_id = None
 
         if len(poly_outcomes) == 2 and len(poly_asset_ids) == 2:
             def norm(s):
@@ -353,7 +338,7 @@ class ArbitrageMatcher:
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.matches, f, indent=2, ensure_ascii=False)
 
-    def run_initial_matching(self, all_markets, all_embeddings, similarity_threshold=0.7):
+    async def run_initial_matching(self, all_markets, all_embeddings, similarity_threshold=0.7):
         """
         Run matching on all initial markets
         
@@ -373,7 +358,12 @@ class ArbitrageMatcher:
             if market_info[2] == 'polymarket'  # source is at index 2
         ]
 
-        batch_matches = self.check_markets_batch(tickers=poly_tickers, all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold)
+        batch_matches = await self.check_markets_batch(
+            tickers=poly_tickers,
+            all_markets=all_markets,
+            all_embeddings=all_embeddings,
+            similarity_threshold=similarity_threshold,
+        )
         match_count = 0
         for match in batch_matches:
             if match[0] and match[1] and match[2]:  # Ensure all IDs are present
@@ -391,7 +381,7 @@ class ArbitrageMatcher:
         print(f"INITIAL MATCHING COMPLETE - {match_count} matches found")
         print("="*60 + "\n")
 
-    def check_new_markets(self, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
+    async def check_new_markets(self, all_markets, all_embeddings, similarity_threshold=0.7, sports=False):
         """
         Check for any new markets since last check
         
@@ -401,7 +391,12 @@ class ArbitrageMatcher:
         new_tickers = current_tickers - self.processed_tickers
         self.processed_tickers.update(new_tickers)
         
-        batch_matches = self.check_markets_batch(tickers=list(new_tickers), all_markets=all_markets, all_embeddings=all_embeddings, similarity_threshold=similarity_threshold)
+        batch_matches = await self.check_markets_batch(
+            tickers=list(new_tickers),
+            all_markets=all_markets,
+            all_embeddings=all_embeddings,
+            similarity_threshold=similarity_threshold,
+        )
         match_count = 0
         for match in batch_matches:
             if match[0] and match[1] and match[2]:  # Ensure all IDs are present
