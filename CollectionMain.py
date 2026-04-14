@@ -15,7 +15,7 @@ TOP_N = 10
 BATCH_SIZE = 32
 SAVE_INTERVAL = 60
 UPDATE_INTERVAL = 30
-API_BATCH_SIZE = 10
+GEMINI_BATCH_SIZE = 32
 
 async def main():
 
@@ -33,7 +33,7 @@ async def main():
     kalshi = AsyncKalshiCollector()
     poly = AsyncPolymarketCollector()
 
-    matcher = ArbitrageMatcher(top_n=TOP_N, api_key=API_KEY)
+    matcher = ArbitrageMatcher(top_n=TOP_N, api_key=API_KEY, gemini_batch_size=GEMINI_BATCH_SIZE, max_concurrent=GEMINI_BATCH_SIZE)
     
     # Start collectors
     poly.last_update_close = datetime.now(timezone.utc)
@@ -46,7 +46,7 @@ async def main():
     kalshi.last_update = time.time()
     print(kalshi.last_update)
 
-    '''
+
     print("Starting embedding for Kalshi")
     embedder.add_markets(kalshi_markets)
     
@@ -54,12 +54,12 @@ async def main():
     embedder.add_markets(poly_markets)
 
 
-    for match in matcher.run_initial_matching(
+    async for match in matcher.run_initial_matching(
         embedder.all_markets,
         embedder.all_embeddings
     ):
-        publisher.publish_match(match)
-    '''
+        await publisher.publish_new_match(match)
+    
     
     # Continuous monitoring
     try:
@@ -72,7 +72,7 @@ async def main():
                 poly.delete_markets()
             )
 
-            #embedder.delete_markets(closed_kalshi + closed_poly)
+            embedder.delete_markets(closed_kalshi + closed_poly)
             
             # Fetch and embed new markets
             new_kalshi, new_poly = await asyncio.gather(
@@ -82,17 +82,17 @@ async def main():
             print(new_kalshi)
             print(kalshi.last_update)
             kalshi.last_update = time.time()
-            '''
+            
             embedder.add_markets(new_kalshi)
             embedder.add_markets(new_poly)
             
             # Check for matches and publish as they're found
-            for match in matcher.check_new_markets(
+            async for match in matcher.check_new_markets(
                 all_markets=embedder.all_markets,
                 all_embeddings=embedder.all_embeddings
             ):
-                publisher.publish_match(match)
-            '''
+                await publisher.publish_new_match(match)
+            
     except KeyboardInterrupt:
         print("\nShutting down...")
         await asyncio.gather(kalshi.close(), poly.close())
