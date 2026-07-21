@@ -116,16 +116,24 @@ class AsyncKalshiCollector:
 
             except Exception as e:
                 print(f"Error fetching page {page}: {e}")
-                await session.close()
-                break 
-        
+                break
+
         # Set markets once after all pages are fetched
         print(f"Total Kalshi markets fetched: {total_markets}")
+        self.save_to_json(new_markets, self.save_path)
         return new_markets
-        
-    async def save_to_json(self, data, filename):
-        with open(filename, 'a') as f:
-            json.dump(data, f, indent=4)
+
+    def save_to_json(self, data, filename):
+        """Save the latest fetched markets snapshot to a JSON file (overwrites, always valid JSON)"""
+        filename = Path(filename)
+        filename.parent.mkdir(parents=True, exist_ok=True)
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+
+    async def close(self):
+        """Close the underlying aiohttp session"""
+        if not self.session.closed:
+            await self.session.close()
 
     
 async def main():

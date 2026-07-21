@@ -134,9 +134,16 @@ class AsyncPolymarketCollector:
         return closed_markets
     
     def save_to_json(self, filename, markets):
-        """Save markets to JSON file"""
-        with open(filename, 'a') as f:
+        """Save the latest fetched markets snapshot to a JSON file (overwrites, always valid JSON)"""
+        filename = Path(filename)
+        filename.parent.mkdir(parents=True, exist_ok=True)
+        with open(filename, 'w', encoding='utf-8') as f:
             json.dump(markets, f, indent=2)
+
+    async def close(self):
+        """Close the underlying aiohttp session"""
+        if not self.session.closed:
+            await self.session.close()
 
 async def main():
 
