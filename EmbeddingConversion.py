@@ -12,20 +12,24 @@ class EmbeddingConversion:
         """
         Current Model - "Qwen/Qwen3-Embedding-4B"
         """
-        
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        if torch.cuda.is_available():
+            device = "cuda"
+        else:
+            # Check if MPS is available for Apple Silicon
+            if getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
+                device = "mps"
+            else:
+                device = "cpu"
+        self.device = device
+
         print(f"Loading embedding model: {model_name} on {device}")
 
-        quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+        quantization_config = BitsAndBytesConfig(load_in_8bit=True) if device == "cuda" else None
         self.model = SentenceTransformer(
             model_name,
             device=device,
-            model_kwargs={"quantization_config": quantization_config}
+            model_kwargs=({"quantization_config": quantization_config} if quantization_config is not None else {})
         )
-
-        param = next(self.model._first_module().parameters())
-        print("param dtype:", param.dtype)
-        print("param device:", param.device)
 
         self.batch_size = batch_size
         self.save_interval = save_interval
@@ -73,6 +77,8 @@ class EmbeddingConversion:
         )
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+        if getattr(torch, "mps", None) is not None and self.device == "mps":
+            torch.mps.empty_cache()
         # Store everything
         for i, market_info in enumerate(new_markets):
             id = market_info[0]
