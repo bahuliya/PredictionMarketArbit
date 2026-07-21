@@ -5,12 +5,16 @@ from collectors.polymarket_collector import AsyncPolymarketCollector
 from MatchPublisher import MatchPublisher
 import asyncio, time, os
 from datetime import datetime, timezone
+from dotenv import load_dotenv
 
+load_dotenv("keys.env")
 '''
 Current Model - Qwen/Qwen3-Embedding-4B
 Test Model - "all-MiniLM-L6-v2"
+
+Gemini auth is via Vertex AI (see ArbitrageMatcher) using local gcloud
+application-default credentials, not GEMINI_API_KEY.
 '''
-API_KEY = os.getenv("GEMINI_API_KEY")
 TOP_N = 10
 BATCH_SIZE = 32
 SAVE_INTERVAL = 60
@@ -33,7 +37,7 @@ async def main():
     kalshi = AsyncKalshiCollector()
     poly = AsyncPolymarketCollector()
 
-    matcher = ArbitrageMatcher(top_n=TOP_N, api_key=API_KEY, gemini_batch_size=GEMINI_BATCH_SIZE, max_concurrent=GEMINI_BATCH_SIZE)
+    matcher = ArbitrageMatcher(top_n=TOP_N, gemini_batch_size=GEMINI_BATCH_SIZE, max_concurrent=GEMINI_BATCH_SIZE)
     
     # Start collectors
     poly.last_update_close = datetime.now(timezone.utc)

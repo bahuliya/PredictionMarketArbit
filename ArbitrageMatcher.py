@@ -9,9 +9,15 @@ from google.genai import types
 
 
 class ArbitrageMatcher:
-    def __init__(self, top_n, api_key, gemini_batch_size, max_concurrent=20):
+    def __init__(self, top_n, gemini_batch_size, max_concurrent=20, project="arbitrage-493221", location="us-central1"):
         self.top_n = top_n
-        self.client = genai.Client(api_key=api_key)
+        # Auth is via Vertex AI application-default credentials (run `gcloud auth
+        # application-default login` and `gcloud config set project <project>` once locally).
+        self.client = genai.Client(
+            vertexai=True,
+            project=project,
+            location=location
+        )
         self.matches = []
         self.gemini_batch_size = gemini_batch_size
         self.max_concurrent = max_concurrent
@@ -107,7 +113,7 @@ class ArbitrageMatcher:
                 Respond with ONLY the word "yes" or "no". Nothing else.
                 """     
         
-        model = "gemini-3-flash-preview"
+        model = "gemini-3.0-flash"
         contents = f'Market 1: "{key_desc}"\nMarket 2: "{candidate_desc}"\n\nRespond with only "yes" or "no":'
        
         async with semaphore:
