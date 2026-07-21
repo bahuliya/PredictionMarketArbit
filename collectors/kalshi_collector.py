@@ -112,6 +112,7 @@ class AsyncKalshiCollector:
                     
                     if not cursor:
                         break
+                    await asyncio.sleep(0.1)
 
             except Exception as e:
                 print(f"Error fetching page {page}: {e}")
