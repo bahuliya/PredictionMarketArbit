@@ -28,4 +28,5 @@ class Arbitrage:
         roi = ((contracts - capital) / (capital)) * 100
         if roi > 0:
             print(roi, "Kalshi Ask:", kalshi_ask, "Poly Ask:", poly_ask)
-        return roi >= target_roi, roi
+        # contracts is returned so callers (e.g. an execution layer) know the size to trade
+        return roi >= target_roi, roi, contracts

@@ -8,6 +8,7 @@ from PolymarketConnectionPool import PolymarketConnectionPool
 from RedisListner import RedisListener
 from event_hub import EventHub
 from gui_backend import build_gui_app
+from execution import ExecutionManager, KalshiOrderExecutor, PolymarketOrderExecutor
 
 def setup_logging(level=logging.INFO, log_path="logs/orderbook.log"):
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
@@ -33,7 +34,19 @@ PRIVATE_KEY_PEM = b"""-----BEGIN RSA PRIVATE KEY-----
 async def main():
     # 1. Initialize orderbook
     hub = EventHub()
-    orderbook = Orderbook(hub=hub)
+
+    # Execution layer: OFF by default. Setting ENABLE_LIVE_TRADING=1 in keys.env
+    # is NOT enough on its own to place real orders - KalshiOrderExecutor and
+    # PolymarketOrderExecutor.place_order() are unimplemented stubs (see
+    # execution/) until real order-placement logic is built and reviewed.
+    live_trading_enabled = os.getenv("ENABLE_LIVE_TRADING", "0") == "1"
+    execution_manager = ExecutionManager(
+        kalshi_executor=KalshiOrderExecutor(ACCESS_KEY, PRIVATE_KEY_PEM),
+        poly_executor=PolymarketOrderExecutor(),
+        live_trading_enabled=live_trading_enabled,
+    )
+
+    orderbook = Orderbook(hub=hub, executor=execution_manager)
 
     # Start GUI backend (serves WS at /ws and optionally the built frontend)
     app = build_gui_app(orderbook, hub)

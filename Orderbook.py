@@ -3,23 +3,35 @@ import logging
 import traceback
 import os
 from arbitrage import Arbitrage
+from execution.base import ArbitrageOpportunity
 from datetime import datetime, timezone
 
 logger = logging.getLogger("orderbook")
 
 class Orderbook:
-    def __init__(self, hub=None):
+    def __init__(self, hub=None, executor=None):
         self.kalshi_orderbook = {}
         self.polymarket_orderbook = {}
         self.matches = {}
         self.hub = hub
         self.arb_hits = {}
         self.pos_roi = {}
+        # Optional execution.ExecutionManager - notified on every arb_hit.
+        # None by default, so nothing trades unless explicitly wired up.
+        self.executor = executor
 
 
     def _publish(self, event):
         if self.hub is not None:
             self.hub.publish(event)
+
+    def _notify_executor(self, opportunity):
+        if self.executor is None:
+            return
+        try:
+            self.executor.on_arb_hit(opportunity)
+        except Exception:
+            logger.exception("Execution manager failed to handle arb_hit for %s", opportunity.kalshi_ticker)
 
     def _utc_now_iso(self):
         return datetime.now(timezone.utc).isoformat()
@@ -381,7 +393,7 @@ class Orderbook:
                     poly_ask = self.polymarket_orderbook[asset_id]["bestAsk"]
                     poly_volume = self.polymarket_orderbook[asset_id]["bestAskVolume"]
 
-                    hit, roi = Arbitrage.calc_arbitrage(
+                    hit, roi, contracts = Arbitrage.calc_arbitrage(
                     kalshi_ask / 100,
                     kalshi_volume,
                     float(poly_ask),
@@ -409,6 +421,18 @@ class Orderbook:
                                 "kalshi_ticker": kalshi_id,
                                 "roi": float(roi),
                             })
+                            self._notify_executor(ArbitrageOpportunity(
+                                kalshi_ticker=kalshi_id,
+                                kalshi_side=self.matches[asset_id]["kalshi_side"],
+                                kalshi_ask=kalshi_ask / 100,
+                                kalshi_volume=float(kalshi_volume),
+                                poly_asset_id=asset_id,
+                                poly_ask=float(poly_ask),
+                                poly_volume=float(poly_volume),
+                                contracts=float(contracts),
+                                roi=float(roi),
+                                ts=ts,
+                            ))
                         else:
                             # Clear any previous hit when falling below target
                             if kalshi_id in self.arb_hits:
@@ -443,7 +467,7 @@ class Orderbook:
                     if poly_ask is None:
                         return False
 
-                    hit, roi = Arbitrage.calc_arbitrage(
+                    hit, roi, contracts = Arbitrage.calc_arbitrage(
                     kalshi_ask / 100,
                     kalshi_volume,
                     float(poly_ask),
@@ -470,6 +494,18 @@ class Orderbook:
                                 "kalshi_ticker": kalshi_id,
                                 "roi": float(roi),
                             })
+                            self._notify_executor(ArbitrageOpportunity(
+                                kalshi_ticker=kalshi_id,
+                                kalshi_side=contract,
+                                kalshi_ask=kalshi_ask / 100,
+                                kalshi_volume=float(kalshi_volume),
+                                poly_asset_id=poly_asset,
+                                poly_ask=float(poly_ask),
+                                poly_volume=float(poly_volume),
+                                contracts=float(contracts),
+                                roi=float(roi),
+                                ts=ts,
+                            ))
                         else:
                             # Clear any previous hit when falling below target
                             if kalshi_id in self.arb_hits:
