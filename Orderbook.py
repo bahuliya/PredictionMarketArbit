@@ -321,16 +321,26 @@ class Orderbook:
                     size = price_change["size"]
                     side = "bids" if "BUY" == price_change["side"] else "asks"
                     asset = self.polymarket_orderbook[asset_id]
-                    if size == 0:
-                        del asset[side][price]
-                        best_bid = price_change["best_bid"]
-                        best_ask = price_change["best_ask"]
-                        asset["bestBid"] = best_bid
-                        asset["bestAsk"] = best_ask
 
-                    asset[side][price] = size
-                    curr_ask = self.polymarket_orderbook[asset_id]["bestAsk"]
-                    curr_vol = self.polymarket_orderbook[asset_id]["bestAskVolume"]
+                    # A level with size 0 has been removed from the book; otherwise upsert it.
+                    if size == 0:
+                        asset[side].pop(price, None)
+                    else:
+                        asset[side][price] = size
+
+                    # Polymarket reports the authoritative best_bid/best_ask on every price_change,
+                    # not just when a level is removed - refresh them unconditionally.
+                    best_bid = price_change.get("best_bid")
+                    best_ask = price_change.get("best_ask")
+                    if best_bid is not None:
+                        asset["bestBid"] = best_bid
+                        asset["bestBidVolume"] = asset["bids"].get(best_bid, 0)
+                    if best_ask is not None:
+                        asset["bestAsk"] = best_ask
+                        asset["bestAskVolume"] = asset["asks"].get(best_ask, 0)
+
+                    curr_ask = asset["bestAsk"]
+                    curr_vol = asset["bestAskVolume"]
                     if self.check_poly_arbitrage(prev_ask, prev_vol, curr_ask, curr_vol, asset_id):
                         print(f"Arbitrage Found: Poly ------ {asset_id}")
                     
