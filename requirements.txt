@@ -1,0 +1,17 @@
+# Discovery / matching pipeline (CollectionMain.py)
+aiohttp==3.13.3
+numpy==2.1.3
+scikit-learn==1.7.2
+sentence-transformers==5.1.2
+torch==2.9.0
+transformers==4.57.1
+python-dotenv==1.1.0
+google-genai==2.12.1
+
+# Trading / orderbook pipeline (TradingMain.py)
+cryptography==46.0.3
+fastapi==0.128.0
+uvicorn==0.40.0
+websockets==16.0
+redis==7.1.0
+requests==2.32.3
