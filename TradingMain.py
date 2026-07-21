@@ -1,7 +1,9 @@
 import asyncio
 import logging
 import os
+import sys
 import uvicorn
+from dotenv import load_dotenv
 from Orderbook import Orderbook
 from KalshiConnectionPool import KalshiConnectionPool
 from PolymarketConnectionPool import PolymarketConnectionPool
@@ -9,6 +11,8 @@ from RedisListner import RedisListener
 from event_hub import EventHub
 from gui_backend import build_gui_app
 from execution import ExecutionManager, KalshiOrderExecutor, PolymarketOrderExecutor
+
+load_dotenv("keys.env")
 
 def setup_logging(level=logging.INFO, log_path="logs/orderbook.log"):
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
@@ -24,14 +28,19 @@ def setup_logging(level=logging.INFO, log_path="logs/orderbook.log"):
 
     root.handlers[:] = [file_handler]
 
-# Load your Kalshi credentials
-ACCESS_KEY = "***REMOVED-KALSHI-ACCESS-KEY***"
-PRIVATE_KEY_PEM = b"""-----BEGIN RSA PRIVATE KEY-----
-***REMOVED-KALSHI-PRIVATE-KEY***==
------END RSA PRIVATE KEY-----"""
+# Kalshi credentials, loaded from keys.env (see keys.env for setup instructions)
+ACCESS_KEY = os.getenv("KALSHI_ACCESS_KEY")
+_PRIVATE_KEY_RAW = os.getenv("KALSHI_PRIVATE_KEY_PEM")
+PRIVATE_KEY_PEM = _PRIVATE_KEY_RAW.replace("\\n", "\n").encode() if _PRIVATE_KEY_RAW else None
 
 
 async def main():
+    if not ACCESS_KEY or not PRIVATE_KEY_PEM:
+        print(
+            "Missing Kalshi credentials. Set KALSHI_ACCESS_KEY and KALSHI_PRIVATE_KEY_PEM in keys.env.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
     # 1. Initialize orderbook
     hub = EventHub()
 
